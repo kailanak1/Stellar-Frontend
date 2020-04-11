@@ -9,8 +9,6 @@ function App() {
 //all the methods
 
 
-
-
   return (
     <div className="App">
       <header className="App-header">
@@ -19,7 +17,7 @@ function App() {
         </h3>
       </header>
       <Router>
-        <Route path='/calendar' component={EventCalendar}
+        <Route path='/calendar' component={EventCalendar}></Route>
       </Router>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react'
 import 'react-event-calendar'
+import UserEvent from './UserEvent'
 
 const EventCalendar = (props) => {
 
@@ -19,7 +20,7 @@ const EventCalendar = (props) => {
             data: 'maybe there are some random details you want to use later. invite yo\' friends.',
         },
     ];
-    
+
     return (
         <div className='calendar'>
             month={4}
