@@ -21,7 +21,6 @@ export default class App extends React.Component {
     };
   }
 
-
   
 //all the methods
 componentDidMount() {
@@ -35,12 +34,10 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  api.photos.getPhotos('constellations')
-  .then(data => {
-    myPhoto = data.results[Math.floor(Math.random() * data.results.length)].urls.regular})
-    this.setState({
-    photo: myPhoto
-  })
+  // api.photos.getPhotos('constellations')
+  // .then(data => {
+  //   console.log(data)
+  // })
 }
 
 login = data => {
@@ -59,18 +56,11 @@ render() {
     <div className="App">
       <header className="App-header">
       </header>
-    
       {/* <Navbar/> */}
-      
       <h3>
           Welcome to Stellar
       </h3>
-      <main>
-          <Calendar />
-      <span className="icon">date_range</span>
-            <span>
-              react<b>calendar</b>
-            </span>
+      <main id='main' >
       <div className="ui container grid">
          <Router>
           <div id="content" className="sixteen wide column">
@@ -78,11 +68,18 @@ render() {
                 exact
                 path="/login"
                 render={props => <Login {...props} onLogin={this.login} />}/>
+
               <Route path="/constellations" component={ConstellationList} />
+
+              <Route 
+                exact
+                path='/calendar' 
+                render={props => <Calendar />} />
+                
               <Route
                 exact
-                path="/"
-                render={<LandingPage photo={this.state.photo}/>}
+                path="/home"
+                render={props => <LandingPage {...props}/>}
               />     
           </div>
         </Router>
