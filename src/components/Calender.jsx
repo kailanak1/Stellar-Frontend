@@ -135,7 +135,9 @@ class Calendar extends React.Component {
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
+
         {this.state.form == true ? <EventForm style={{display: "block"}} month={this.state.currentMonth} date={this.state.selectedDate}/> : <EventForm sytle={{display:'none'}}/>}
+        
       </div>
     );
   }
