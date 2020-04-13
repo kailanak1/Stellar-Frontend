@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-// import MyCalendar from './components/Calender'
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
-
+import Calendar from './components/Calender.jsx'
+import './calendar.css'
 
 export default class App extends React.Component {
   constructor() {
@@ -54,6 +54,12 @@ render() {
       <h3>
           Welcome to Stellar
       </h3>
+      <main>
+          <Calendar />
+      <span className="icon">date_range</span>
+            <span>
+              react<b>calendar</b>
+            </span>
       <div className="ui container grid">
          <Router>
           <div id="content" className="sixteen wide column">
@@ -65,7 +71,7 @@ render() {
           </div>
         </Router>
         </div> 
-    
+        </main>
     </div>
   );
 }
