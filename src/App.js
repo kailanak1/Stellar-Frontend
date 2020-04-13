@@ -21,7 +21,6 @@ export default class App extends React.Component {
     };
   }
 
-
   
 //all the methods
 componentDidMount() {
@@ -35,7 +34,7 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  api.fireballs.getFireballs().then(data => {console.log(data)})
+  // api.fireballs.getFireballs().then(data => {console.log(data)})
 }
 
 login = data => {
@@ -52,20 +51,29 @@ logout = () => {
 render() {
   return (
     <div className="App">
-      <header className="App-header">
+       <header className="App-header">
       </header>
-    
       {/* <Navbar/> */}
-      
       <h3>
           Welcome to Stellar
       </h3>
+
       <main>
-          <Calendar />
+        <div className="row">
+          <div className="column">
+            <div className="left-column">
+              left column
+        </div>
+        </div> 
+        <div className="column">
+        <div className="right-column">
+                right column
+                { <Calendar /> }
       <span className="icon">date_range</span>
             <span>
               react<b>calendar</b>
             </span>
+
       <div className="ui container grid">
          <Router>
           <div id="content" className="sixteen wide column">
@@ -73,7 +81,14 @@ render() {
                 exact
                 path="/login"
                 render={props => <Login {...props} onLogin={this.login} />}/>
+
               <Route path="/constellations" component={ConstellationList} />
+
+              <Route 
+                exact
+                path='/calendar' 
+                render={props => <Calendar />} />
+                
               <Route
                 exact
                 path="/"
@@ -81,7 +96,10 @@ render() {
               />     
           </div>
         </Router>
-        </div> 
+        </div>
+              </div>
+              </div>
+        </div>
         </main>
     </div>
   );
