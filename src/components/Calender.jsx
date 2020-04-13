@@ -10,6 +10,7 @@ import isSameMonth from 'date-fns/isSameMonth'
 import isSameDay from 'date-fns/isSameDay'
 import startOfWeek from 'date-fns/startOfWeek'
 import '../calendar.css'
+import EventForm from './AddEvent'
 
 
 class Calendar extends React.Component {
