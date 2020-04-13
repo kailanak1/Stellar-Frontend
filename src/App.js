@@ -7,18 +7,22 @@ import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
 import Calendar from './components/Calender.jsx'
 import './calendar.css'
+import LandingPage from './components/LandingPage'
 
+let myPhoto;
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       auth: {
         user: {}
-      }
+      },
+      photo: ""
     };
   }
 
 
+  
 //all the methods
 componentDidMount() {
   const token = localStorage.getItem("token");
@@ -31,6 +35,12 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
+  api.photos.getPhotos('constellations')
+  .then(data => {
+    myPhoto = data.results[Math.floor(Math.random() * data.results.length)].urls.regular})
+    this.setState({
+    photo: myPhoto
+  })
 }
 
 login = data => {
@@ -51,6 +61,7 @@ render() {
       </header>
     
       {/* <Navbar/> */}
+      
       <h3>
           Welcome to Stellar
       </h3>
@@ -68,6 +79,11 @@ render() {
                 path="/login"
                 render={props => <Login {...props} onLogin={this.login} />}/>
               <Route path="/constellations" component={ConstellationList} />
+              <Route
+                exact
+                path="/"
+                render={<LandingPage photo={this.state.photo}/>}
+              />     
           </div>
         </Router>
         </div> 
