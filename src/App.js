@@ -47,15 +47,25 @@ logout = () => {
 render() {
   return (
     <div className="App">
-      <header className="App-header">
+       <header className="App-header">
       </header>
     
       {/* <Navbar/> */}
       <h3>
           Welcome to Stellar
       </h3>
+     
       <main>
-          <Calendar />
+        <div className="row">
+          <div className="column">
+            <div className="left-column">
+              left column
+        </div>
+        </div> 
+        <div className="column">
+        <div className="right-column">
+                right column
+                { <Calendar /> }
       <span className="icon">date_range</span>
             <span>
               react<b>calendar</b>
@@ -68,9 +78,13 @@ render() {
                 path="/login"
                 render={props => <Login {...props} onLogin={this.login} />}/>
               <Route path="/constellations" component={ConstellationList} />
+              
           </div>
         </Router>
-        </div> 
+        </div>
+              </div>
+              </div>
+        </div>
         </main>
     </div>
   );
