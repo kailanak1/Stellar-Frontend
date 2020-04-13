@@ -15,7 +15,8 @@ import '../calendar.css'
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
-    selectedDate: new Date()
+    selectedDate: new Date(),
+    form: false
   };
 
   renderHeader() {
@@ -82,7 +83,6 @@ class Calendar extends React.Component {
             }`}
             key={day}
             onClick={() => this.onDateClick(cloneDay)}
-            //ADD CLASS TOGGLE TO SHOW/HIDE THE ADD EVENT FORM
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -101,9 +101,19 @@ class Calendar extends React.Component {
   }
 
   onDateClick = day => {
-    this.setState({
-      selectedDate: day
+    this.setState(prev => {
+      return {
+      selectedDate: day,
+      form: !prev.form
+      }
     });
+    //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
+    if (this.state.form){
+      document.getElementbyId("EventForm").style.display = 'block'
+    } else {
+      document.getElementbyId("EventForm").style.display = 'none'
+    }
+
   };
 
   nextMonth = () => {
@@ -124,6 +134,7 @@ class Calendar extends React.Component {
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
+        <EventForm month={this.state.currentMonth} date={this.state.selectedDate}/>
       </div>
     );
   }
