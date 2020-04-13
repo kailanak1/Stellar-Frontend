@@ -35,12 +35,7 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  api.photos.getPhotos('constellations')
-  .then(data => {
-    myPhoto = data.results[Math.floor(Math.random() * data.results.length)].urls.regular})
-    this.setState({
-    photo: myPhoto
-  })
+  api.fireballs.getFireballs().then(data => {console.log(data)})
 }
 
 login = data => {
@@ -82,7 +77,7 @@ render() {
               <Route
                 exact
                 path="/"
-                render={<LandingPage photo={this.state.photo}/>}
+                render={props => <LandingPage {...props}/>}
               />     
           </div>
         </Router>
