@@ -4,7 +4,7 @@ const ConstellationDetail = props => {
     const { star } = props
 
   return (
-    <div className="ui column">
+    <div className="ui column" style={{border: "1px, solid"}}>
       <div
         className="ui card"
         key={star.id}
@@ -22,12 +22,12 @@ const ConstellationDetail = props => {
         </div>
         <div className="extra content">
           <span>
-            {star.Area} (in sq°). 
+            {star.Area} (in sq°).
           </span>
 
           <span>
           Number of stars on the 100 Brightest Stars list: {star.S}
-          Best date for viewing (constellation is on or very near the meridian at midnight): {star.Date}
+        Best date for viewing (constellation is on or very near the meridian at midnight): {star.Date}
           </span>
           <span>
             {star.V == "V" || star.V == "P" ? "Visible from where you are!" : "Not visible."}

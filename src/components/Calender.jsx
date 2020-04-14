@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import addMonths from 'date-fns/addMonths'
 import subMonths from 'date-fns/subMonths'
 import addDays from 'date-fns/addDays'
@@ -105,15 +105,14 @@ class Calendar extends React.Component {
     this.setState(prev => {
       return {
       selectedDate: day,
-      form: !prev.form
       }
     });
-    //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
-    if (this.state.form){
-      document.getElementById("EventForm").style.display = 'block'
-    } else {
-      document.getElementById("EventForm").style.display = 'none'
-    }
+    // //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
+    // if (this.state.form){
+    //   document.getElementbyId("EventForm").style.display = 'block'
+    // } else {
+    //   document.getElementbyId("EventForm").style.display = 'none'
+    // }
 
   };
 
@@ -129,17 +128,42 @@ class Calendar extends React.Component {
     });
   };
 
+  handleClick = () => {
+    this.setState(prev => {
+      return {
+        form: !prev.form
+      }
+    })
+  }
+
+  onAddEvent = (event) => {
+    //associate event with calendar and user
+    this.props.onAddEvent(event)
+    this.props.history.push('/event')
+  }
+
+  showForm = () => {
+    if (this.state.form === true) {
+      return <EventForm onAddEvent={this.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+    } else {
+      return <EventForm onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
+  }
+
   render() {
     return (
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+      <div className="flex-container">
+          <div className="calendar left-column">
+            {this.renderHeader()}
+            {this.renderDays()}
+            {this.renderCells()}
+            <input type="button" onClick={this.handleClick} value="Add Event"></input>
+          </div>
 
-        {this.state.form == true ? <EventForm style={{display: "block"}} month={this.state.currentMonth} date={this.state.selectedDate}/> : <EventForm sytle={{display:'none'}}/>}
-        
-      </div>
-    );
+          <div className="right-column">
+          {this.showForm()}
+            </div>
+        </div>
+    )
   }
 }
 
