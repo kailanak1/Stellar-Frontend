@@ -34,12 +34,21 @@ class LandingPage extends React.Component{
   render(){
       {this.getPic()}
     return(
-        <div style={{backgroundImage: background}}>
+      <div className="flex-container">
+        <h1 className="wrapper message welcome left-column">
+          Welcome to Stellar
+        </h1>
+        <div className="right-column wrapper message">
+            <p></p>
+        </div>
+        {/* <div style={{backgroundImage: background}}>
             <img src={this.state.background} alt="starry sky " width="100%"/>
         Photo by <a href={this.state.profileLink}>{this.state.photographer}</a> on <a href="https://unsplash.com/?utm_source=Stellar&utm_medium=referral">Unsplash</a>
-        </div>
+        </div> */}
+      </div>
     )
   }
 }
+
 export default LandingPage
 

@@ -13,6 +13,12 @@ class Login extends React.Component {
     };
   }
   
+  handleChange = (event) => {
+    let newState = {...this.state.fields, [event.target.name]: event.target.value}
+    this.setState({
+      fields: newState
+    })
+  }
 
   handleSubmit = e => {
     e.preventDefault();

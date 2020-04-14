@@ -86,41 +86,35 @@ addEvent = (event) => {
 render() {
   return (
     <div className="App">
-       <header className="App-header">
-      </header>
-      {/* <Navbar/> */}
-      <h3>
-          Welcome to Stellar
-      </h3>
+      <Router>
+        <header className="App-header">
+        <Navbar user={this.state.auth.user}/>
+        </header>
+        <div className = "main">
+          <Route
+            exact
+            path="/login"
+            render={props => <Login {...props} onLogin={this.login} />}/>
 
-      <main>
-        <div className="flex-container">
-         <Router>
-              <Route
-                exact
-                path="/login"
-                render={props => <Login {...props} onLogin={this.login} />}/>
+          <Route path="/constellations" component={ConstellationList} />
 
-              <Route path="/constellations" component={ConstellationList} />
+          <Route 
+            exact
+            path='/calendar' 
+            render={props => <Calendar {...props} onAddEvent={this.addEvent}/>} />
 
-              <Route 
-                exact
-                path='/calendar' 
-                render={props => <Calendar {...props} onAddEvent={this.addEvent}/>} />
-
-              <Route 
-                exact
-                path='/event' 
-                render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
-                
-              <Route
-                exact
-                path="/home"
-                render={props => <LandingPage {...props}/>}
-              />     
-        </Router>
+          <Route 
+            exact
+            path='/event' 
+            render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
+            
+          <Route
+            exact
+            path="/home"
+            render={props => <LandingPage {...props}/>}
+          />     
         </div>
-        </main>
+        </Router>
     </div>
   );
 }
