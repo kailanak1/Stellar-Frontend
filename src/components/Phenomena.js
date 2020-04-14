@@ -13,14 +13,16 @@ export default class Phenomena extends React.Component{
         api.phenomena.getPhenomena().then(data => {
           this.setState({
             phenomena: data
+          })
         })
-      })
     }
+    
     renderPhenomena = () => {
         return this.state.phenomena.map(phenomenon => {
             return <PhenomenonDetail key={phenomenon.id} phenomenon={phenomenon}/>
         })
     }
+
     render(){
         return (
           <div>
