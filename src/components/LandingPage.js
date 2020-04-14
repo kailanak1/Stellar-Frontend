@@ -32,10 +32,10 @@ class LandingPage extends React.Component{
 // }
 
   render(){
-      {this.getPic()}
+    //   {this.getPic()}
     return(
       <div className="flex-container">
-        <h1 className="wrapper message welcome left-column">
+        <h1 className="wrapper message left-column" style={{position:"relative", top: "200px"}}>
           Welcome to Stellar
         </h1>
         <div className="right-column wrapper message">
