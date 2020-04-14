@@ -93,3 +93,21 @@ h1 {
   font-family: 'Great Vibes', cursive;
   font-size: 60px;
 }
+
+
+  
+#start:hover {
+    background-color: #B95800;
+    color: white;
+}
+.button {
+  border-radius: 6px;
+  border: 2px solid white;
+  background-color:rgba(71, 3, 114, 0.836);
+  transition-duration: 0.4s;
+  padding: 12px 28px;
+  font-size: 24px;
+  font-family: 'Dancing Script', cursive;
+  font-style: oblique;
+  color: white;
+}

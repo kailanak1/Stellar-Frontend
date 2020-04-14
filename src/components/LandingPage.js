@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { api } from "../services/api";
 
 let background
@@ -38,8 +39,21 @@ class LandingPage extends React.Component{
         <h1 className="wrapper message left-column" style={{position:"relative", top: "200px"}}>
           Welcome to Stellar
         </h1>
-        <div className="right-column wrapper message">
-            <p></p>
+        <div className="right-column wrapper message" style={{position:"relative", top: "200px"}}>
+            <Link to="/login" >
+                <small style={{color: "white"}}>For existing users:</small>
+                <br></br>
+                <button className="button">Log In</button> 
+                <br></br>
+                <br></br>
+
+            </Link>
+            <Link to="/signup" >
+                <small style={{color: "white"}}>New to Stellar?</small>
+                <br></br>
+                <button className="button">Sign Up</button> 
+                <br></br>
+            </Link>
         </div>
         {/* <div style={{backgroundImage: background}}>
             <img src={this.state.background} alt="starry sky " width="100%"/>
