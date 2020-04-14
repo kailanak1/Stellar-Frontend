@@ -35,7 +35,7 @@ const getMoonPhase = (unixTimestamp) => {
 }
 
 const login = data => {
-  return fetch(`${API_ROOT}/auth`, {
+  return fetch(`${API_ROOT}/login`, {
     method: "POST",
     headers: headers(),
     body: JSON.stringify(data)

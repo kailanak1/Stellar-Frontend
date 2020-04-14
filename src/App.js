@@ -41,7 +41,7 @@ componentDidMount() {
 }
 
 login = data => {
-  const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username, calendar: (api.auth.getCalendars().then(data => {return data.find_by({user_id: data.id}) }))}};
+  const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username }};
   localStorage.setItem("token", data.jwt);
   this.setState({ auth: updatedState });
 };
@@ -115,7 +115,7 @@ render() {
                 render={props => <LandingPage {...props}/>}
               />     
           </div>
-        </div>
+     
         </Router>
     </div>
   );
