@@ -11,7 +11,7 @@ import isSameDay from 'date-fns/isSameDay'
 import startOfWeek from 'date-fns/startOfWeek'
 import '../calendar.css'
 import EventForm from './AddEvent'
-
+import {api} from '../services/api'
 
 class Calendar extends React.Component {
   state = {
@@ -149,10 +149,22 @@ class Calendar extends React.Component {
       return <EventForm onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
 
+getCal = () => {
+  api.auth.getCalendars()
+    .then(data => {
+      console.log(data.filter(calendar => calendar.user_id == this.props.user.id))
+    })
+}
+
+componentDidMount(){
+  this.getCal()
+}
+
   render() {
     return (
       <div className="flex-container">
           <div className="calendar left-column">
+            <h1>My Calendar</h1>
             {this.renderHeader()}
             {this.renderDays()}
             {this.renderCells()}

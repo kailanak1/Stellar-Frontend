@@ -19,9 +19,9 @@ const getConstellations = () => {
 };
 
 const getCalendars = () => {
-  return fetch(`${API_ROOT}/calendars`, { headers: headers() }).then(res =>
-    res.json()
-  )
+  return fetch(`${API_ROOT}/calendars`, { headers: headers() })
+  .then(res =>
+    res.json())
 };
 
 const getPhenomena = () => {
@@ -38,12 +38,12 @@ const login = data => {
   return fetch(`${API_ROOT}/login`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify(data)
+    body: JSON.stringify( {auth: data})
   }).then(res => res.json());
 };
 
 const getCurrentUser = () => {
-  return fetch(`${API_ROOT}/current_user`, {
+  return fetch(`${API_ROOT}/profile`, {
     headers: headers()
   }).then(res => {
     // console.log(res)
