@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
+import Phenomena from './components/Phenomena'
 import Calendar from './components/Calender.jsx'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
@@ -34,10 +35,8 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  // api.photos.getPhotos('constellations')
-  // .then(data => {
-  //   console.log(data)
-  // })
+  // api.phenomena.getPhenomena().then(data => {console.log(data)})
+  // api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data)})
 }
 
 login = data => {
@@ -70,7 +69,12 @@ render() {
         </div> 
         <div className="column">
         <div className="right-column">
-               
+                right column
+                { <Calendar /> }
+      <span className="icon">date_range</span>
+            <span>
+              react<b>calendar</b>
+            </span>
 
       <div className="ui container grid">
          <Router>
@@ -82,6 +86,8 @@ render() {
 
               <Route path="/constellations" component={ConstellationList} />
 
+              <Route path="/phenomena" component={Phenomena} />
+
               <Route 
                 exact
                 path='/calendar' 
@@ -89,7 +95,7 @@ render() {
                 
               <Route
                 exact
-                path="/home"
+                path="/"
                 render={props => <LandingPage {...props}/>}
               />     
           </div>
