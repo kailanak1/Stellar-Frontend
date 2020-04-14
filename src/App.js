@@ -119,13 +119,16 @@ render() {
             path='/event' 
             render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
   
-              <Route path="/phenomena" component={Phenomena} />
+          <Route 
+            exact
+            path="/phenomena"
+            component={Phenomena} />
     
-              <Route
-                exact
-                path="/"
-                render={props => <LandingPage {...props}/>}
-              />     
+          <Route
+            exact
+            path="/"
+            render={props => <LandingPage {...props}/>}
+          />     
           </div>
      
         </Router>

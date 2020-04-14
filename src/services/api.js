@@ -25,7 +25,7 @@ const getCalendars = () => {
 };
 
 const getPhenomena = () => {
-    return fetch(`${API_ROOT}/phenomena`, {headers: headers() })
+    return fetch(`${API_ROOT}/sky_events`, {headers: headers() })
     .then(res => res.json())
 }
 

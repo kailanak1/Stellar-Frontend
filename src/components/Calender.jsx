@@ -107,13 +107,6 @@ class Calendar extends React.Component {
       selectedDate: day,
       }
     });
-    // //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
-    // if (this.state.form){
-    //   document.getElementbyId("EventForm").style.display = 'block'
-    // } else {
-    //   document.getElementbyId("EventForm").style.display = 'none'
-    // }
-
   };
 
   nextMonth = () => {
@@ -144,15 +137,15 @@ class Calendar extends React.Component {
 
   showForm = () => {
     if (this.state.form === true) {
-      return <EventForm onAddEvent={this.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+      return <EventForm thisCal={this.getCal()} onAddEvent={this.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
-      return <EventForm onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
+      return <EventForm thisCal={this.getCal()} onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
 
 getCal = () => {
   api.auth.getCalendars()
     .then(data => {
-      console.log(data.filter(calendar => calendar.user_id == this.props.user.id))
+      return data.filter(calendar => calendar.user_id == this.props.user.id)
     })
 }
 
