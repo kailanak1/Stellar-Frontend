@@ -18,8 +18,8 @@ const getConstellations = () => {
   );
 };
 
-const getFireballs = () => {
-    return fetch('https://ssd-api.jpl.nasa.gov/fireball.api')
+const getPhenomena = () => {
+    return fetch(`${API_ROOT}/phenomena`, {headers: headers() })
     .then(res => res.json())
 }
 
@@ -63,7 +63,10 @@ export const api = {
   photos: {
     getPhotos
   },
-  fireballs: {
-      getFireballs
+  phenomena: {
+      getPhenomena
+  },
+  moonPhase: {
+    getMoonPhase
   }
 };

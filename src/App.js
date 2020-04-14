@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
+import Phenomena from './components/Phenomena'
 import Calendar from './components/Calender.jsx'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
@@ -34,7 +35,8 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  // api.fireballs.getFireballs().then(data => {console.log(data)})
+  // api.phenomena.getPhenomena().then(data => {console.log(data)})
+  // api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data)})
 }
 
 login = data => {
@@ -83,6 +85,8 @@ render() {
                 render={props => <Login {...props} onLogin={this.login} />}/>
 
               <Route path="/constellations" component={ConstellationList} />
+
+              <Route path="/phenomena" component={Phenomena} />
 
               <Route 
                 exact
