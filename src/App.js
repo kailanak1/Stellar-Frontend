@@ -60,7 +60,18 @@ render() {
       <h3>
           Welcome to Stellar
       </h3>
-      <main id='main' >
+
+      <main>
+        <div className="row">
+          <div className="column">
+            <div className="left-column">
+              left column
+        </div>
+        </div> 
+        <div className="column">
+        <div className="right-column">
+               
+
       <div className="ui container grid">
          <Router>
           <div id="content" className="sixteen wide column">

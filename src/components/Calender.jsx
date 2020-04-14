@@ -110,9 +110,9 @@ class Calendar extends React.Component {
     });
     //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
     if (this.state.form){
-      document.getElementbyId("EventForm").style.display = 'block'
+      document.getElementById("EventForm").style.display = 'block'
     } else {
-      document.getElementbyId("EventForm").style.display = 'none'
+      document.getElementById("EventForm").style.display = 'none'
     }
 
   };
@@ -135,7 +135,9 @@ class Calendar extends React.Component {
         {this.renderHeader()}
         {this.renderDays()}
         {this.renderCells()}
+
         {this.state.form == true ? <EventForm style={{display: "block"}} month={this.state.currentMonth} date={this.state.selectedDate}/> : <EventForm sytle={{display:'none'}}/>}
+        
       </div>
     );
   }
