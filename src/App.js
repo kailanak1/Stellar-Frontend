@@ -9,6 +9,7 @@ import Calendar from './components/Calender.jsx'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
 import UserEvent from './components/UserEvent'
+import Signup from './components/Signup'
 
 let myPhoto;
 export default class App extends React.Component {
@@ -16,7 +17,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       auth: {
-        user: {id: 1, calendar: {id:1}}
+        user: {id: '', username: ''}
       },
       photo: ""
     };
@@ -26,25 +27,22 @@ export default class App extends React.Component {
 //all the methods
 componentDidMount() {
   const token = localStorage.getItem("token");
-  //console.log(token)
-  if (token) {
-    // make a request to the backend and find our user
-    api.auth.getCurrentUser().then(user => {
-      // console.log(user)
-      const updatedState = { ...this.state.auth, user: user };
-      this.setState({ auth: updatedState });
-    });
-  }
-  // api.photos.getPhotos('constellations')
-  // .then(data => {
-  //   console.log(data)
-  // })
+  // if (token) {
+  //   // make a request to the backend and find our user
+  //   api.auth.getCurrentUser().then(user => {
+  //     const updatedState = { ...this.state.auth, user: user };
+  //     this.setState({ auth: updatedState });
+  //   });
+  // }
 }
 
+// calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
+
 login = data => {
-  const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username, calendar: (api.auth.getCalendars().then(data => {return data.find_by({user_id: data.id}) }))}};
+  const updatedState = { ...this.state.auth, user: {id: data.user.id,  username: data.user.username}};
   localStorage.setItem("token", data.jwt);
-  this.setState({ auth: updatedState });
+  this.setState({ 
+    auth: updatedState });
 };
 
 logout = () => {
@@ -75,7 +73,9 @@ addEvent = (event) => {
   .then(data => console.log(data))
   }
 
-
+createUser = (event) => {
+  console.log(event)
+}
   //User and user's calendar are identified
   //Association is created
   //Added to user's event list
@@ -96,12 +96,17 @@ render() {
             path="/login"
             render={props => <Login {...props} onLogin={this.login} />}/>
 
+          <Route
+            exact
+            path="/signup"
+            render={props => <Signup {...props} onCreateUser={this.createUser} />}/>
+
           <Route path="/constellations" component={ConstellationList} />
 
           <Route 
             exact
             path='/calendar' 
-            render={props => <Calendar {...props} onAddEvent={this.addEvent}/>} />
+            render={props => <Calendar {...props} user={this.state.auth.user} onAddEvent={this.addEvent}/>} />
 
           <Route 
             exact
@@ -110,7 +115,7 @@ render() {
             
           <Route
             exact
-            path="/home"
+            path="/"
             render={props => <LandingPage {...props}/>}
           />     
         </div>

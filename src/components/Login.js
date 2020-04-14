@@ -26,7 +26,8 @@ class Login extends React.Component {
       if (!res.error) {
         // const updatedState = { ...this.state.auth, user: res };
         this.props.onLogin(res);
-        this.props.history.push('/');
+        // localStorage.setItem(user:)
+        this.props.history.push('/calendar');
       } else {
         this.setState({ error: true });
       }
@@ -41,7 +42,7 @@ class Login extends React.Component {
         <div className="ui form">
           <form onSubmit={this.handleSubmit}>
             <div className="ui field">
-              <label>Username</label>
+              <label>Username: </label>
               <input
                 name="username"
                 placeholder="username"
@@ -50,7 +51,7 @@ class Login extends React.Component {
               />
             </div>
             <div className="ui field">
-              <label>Password</label>
+              <label>Password: </label>
               <input
                 name="password"
                 type="password"
