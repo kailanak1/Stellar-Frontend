@@ -18,6 +18,12 @@ const getConstellations = () => {
   );
 };
 
+const getCalendars = () => {
+  return fetch(`${API_ROOT}/calendars`, { headers: headers() }).then(res =>
+    res.json()
+  )
+};
+
 const getPhenomena = () => {
     return fetch(`${API_ROOT}/phenomena`, {headers: headers() })
     .then(res => res.json())
@@ -55,7 +61,8 @@ const getPhotos = (searchTerm) => {
 export const api = {
   auth: {
     login,
-    getCurrentUser
+    getCurrentUser,
+    getCalendars
   },
   constellations: {
     getConstellations
