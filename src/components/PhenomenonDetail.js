@@ -16,7 +16,7 @@ const PhenomenonDetail = props => {
           </div>
 
           <div className="meta text-wrap">
-            <h5>{phenomenon.Month} {phenomenon.date}, at {phenomenon.LocalTime}</h5>
+            <h5>{phenomenon.Month} {phenomenon.Date}, at {phenomenon.LocalTime}</h5>
           </div>
         </div>
         <br></br>

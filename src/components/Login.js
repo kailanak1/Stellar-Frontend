@@ -1,4 +1,5 @@
 import React from 'react'
+import { api } from '../services/api'
 
 export default class Login extends React.Component{
     constructor(){
@@ -16,6 +17,14 @@ export default class Login extends React.Component{
     handleSubmit = (event) => {
         event.preventDefault()
         console.log("logging in")
+        api.auth.login(this.state.fields).then(res => {
+            if (!res.error){
+                this.props.onLogin(res);
+                this.props.history.push('/')
+            } else {
+                this.setState({errors: true})
+            }
+        })
     }
 
     handleChange = (event) => {

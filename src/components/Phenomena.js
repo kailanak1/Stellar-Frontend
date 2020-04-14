@@ -1,6 +1,6 @@
 import React from 'react'
 import { api } from '../services/api'
-import PhenomenonDetail from './PhenomenonDetails'
+import PhenomenonDetail from './PhenomenonDetail'
 
 export default class Phenomena extends React.Component{
     constructor() {
