@@ -118,8 +118,10 @@ calendarMain {
 .calendar {
   display: block;
   position: relative;
-  width: 100%;
+  width: 40%;
+  justify-content: center;
   background: var(--neutral-color);
+  padding: 10px;
   border: 1px solid var(--border-color);
 }
 
