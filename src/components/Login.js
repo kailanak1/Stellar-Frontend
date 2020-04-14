@@ -18,10 +18,13 @@ export default class Login extends React.Component{
         event.preventDefault()
         console.log("logging in")
         api.auth.login(this.state.fields).then(res => {
+            console.log(res)
             if (!res.errors){
+                console.log("no error")
                 this.props.onLogin(res);
                 this.props.history.push('/')
             } else {
+                console.log("something went wrong")
                 this.setState({errors: true})
             }
         })
