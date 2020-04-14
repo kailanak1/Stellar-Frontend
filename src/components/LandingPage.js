@@ -43,7 +43,7 @@ class LandingPage extends React.Component{
             <Link to="/login" >
                 <small style={{color: "white"}}>For existing users:</small>
                 <br></br>
-                <button className="button">Log In</button> 
+                <button className="home-buttons">Log In</button> 
                 <br></br>
                 <br></br>
 
@@ -51,7 +51,7 @@ class LandingPage extends React.Component{
             <Link to="/signup" >
                 <small style={{color: "white"}}>New to Stellar?</small>
                 <br></br>
-                <button className="button">Sign Up</button> 
+                <button className="home-buttons">Sign Up</button> 
                 <br></br>
             </Link>
         </div>
