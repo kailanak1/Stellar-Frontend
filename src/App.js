@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
+import Phenomena from './components/Phenomena'
 import Calendar from './components/Calender.jsx'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
@@ -27,19 +28,24 @@ export default class App extends React.Component {
 //all the methods
 componentDidMount() {
   const token = localStorage.getItem("token");
-  // if (token) {
-  //   // make a request to the backend and find our user
-  //   api.auth.getCurrentUser().then(user => {
-  //     const updatedState = { ...this.state.auth, user: user };
-  //     this.setState({ auth: updatedState });
-  //   });
-  // }
+  if (token) {
+    // make a request to the backend and find our user
+    api.auth.getCurrentUser().then(user => {
+      // console.log(user)
+      const updatedState = { ...this.state.auth, user: user };
+      this.setState({ auth: updatedState });
+    });
+  }
+  // api.phenomena.getPhenomena().then(data => {console.log(data)})
+  // api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data)})
 }
 
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
+
   const updatedState = { ...this.state.auth, user: {id: data.user.id,  username: data.user.username}};
+
   localStorage.setItem("token", data.jwt);
   this.setState({ 
     auth: updatedState });
@@ -112,13 +118,16 @@ render() {
             exact
             path='/event' 
             render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
-            
-          <Route
-            exact
-            path="/"
-            render={props => <LandingPage {...props}/>}
-          />     
-        </div>
+  
+              <Route path="/phenomena" component={Phenomena} />
+    
+              <Route
+                exact
+                path="/"
+                render={props => <LandingPage {...props}/>}
+              />     
+          </div>
+     
         </Router>
     </div>
   );

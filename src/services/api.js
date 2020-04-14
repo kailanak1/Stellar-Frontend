@@ -1,3 +1,5 @@
+import { unix } from "moment";
+
 const API_ROOT = `http://localhost:3000/api/v1`;
 
 const token = () => localStorage.getItem("token");
@@ -21,6 +23,16 @@ const getCalendars = () => {
   .then(res =>
     res.json())
 };
+
+const getPhenomena = () => {
+    return fetch(`${API_ROOT}/phenomena`, {headers: headers() })
+    .then(res => res.json())
+}
+
+const getMoonPhase = (unixTimestamp) => {
+    return fetch(`http://api.farmsense.net/v1/moonphases/?d=${unixTimestamp}`)
+    .then(res => res.json())
+}
 
 const login = data => {
   return fetch(`${API_ROOT}/login`, {
@@ -57,5 +69,11 @@ export const api = {
   },
   photos: {
     getPhotos
+  },
+  phenomena: {
+      getPhenomena
+  },
+  moonPhase: {
+    getMoonPhase
   }
 };
