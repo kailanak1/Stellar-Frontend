@@ -25,7 +25,7 @@ export default class Phenomena extends React.Component{
 
     render(){
         return (
-          <div>
+          <div style={{color:'white'}}>
             <h2>Phenomena</h2>
             {this.renderPhenomena()}
           </div>

@@ -4,7 +4,7 @@ const ConstellationDetail = props => {
     const { star } = props
 
   return (
-    <div className="ui column" style={{border: "1px, solid"}}>
+    <div className="ui column" style={{border: "1px, solid", white: ''}}>
       <div
         className="ui card"
         key={star.id}
