@@ -107,10 +107,39 @@ h1 {
   color: white;
 }
 
-form {
+
+.photographerbody {
+  font-family: Verdana;
+  font-size: 16px;
+  color: black;
+}
+.box {
+  height: 187px;
+  width: 187px;
+  margin-right: 5.5px;
+  margin-left: 5.5px;
+  margin-bottom: 5.5px;
+  margin-top: 5.5px;
+  color: white;
+  position: relative;
+}
+
+.box > span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.form {
   color: white
 }
 
+.bottomright {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-size: 18px;
+}
 .events{
   color: white;
 }

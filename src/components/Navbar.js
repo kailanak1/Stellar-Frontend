@@ -20,7 +20,16 @@ export default class Navbar extends React.Component {
 
     return (
       <div className="navbar">
-        
+
+        <NavLink
+        to="/moonphase"
+        exact
+        style={link}
+        activeStyle={{
+          background: 'black'
+        }}
+        >Moon Phase</NavLink>
+
       <NavLink
         to="/constellations"
         exact

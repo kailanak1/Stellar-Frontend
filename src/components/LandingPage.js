@@ -55,10 +55,8 @@ class LandingPage extends React.Component{
                 <br></br>
             </Link>
         </div>
-        {/* <div style={{backgroundImage: background}}>
-            <img src={this.state.background} alt="starry sky " width="100%"/>
+        <div className="photographerbody"  />
         Photo by <a href={this.state.profileLink}>{this.state.photographer}</a> on <a href="https://unsplash.com/?utm_source=Stellar&utm_medium=referral">Unsplash</a>
-        </div> */}
       </div>
     )
   }

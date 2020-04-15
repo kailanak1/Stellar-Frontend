@@ -12,6 +12,7 @@ import '../calendar.css'
 import EventForm from './AddEvent'
 import AuthHOC from '../HOCs/AuthHOC'
 import {api} from '../services/api'
+import AuthHOC from '../HOCs/AuthHOC'
 
 let currentUser
 class Calendar extends React.Component {
