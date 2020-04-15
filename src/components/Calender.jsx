@@ -13,11 +13,13 @@ import '../calendar.css'
 import EventForm from './AddEvent'
 import {api} from '../services/api'
 
+let currentUser
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
-    form: false
+    form: false,
+    events: []
   };
 
   renderHeader() {
@@ -83,7 +85,7 @@ class Calendar extends React.Component {
                 : isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(cloneDay)}
+            onClick={() => this.onDateClick(cloneDay, currentMonth)}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -101,10 +103,13 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = day => {
+  onDateClick = (day, month) => {
+    const dayy = `${day}-${month}`
+    const myFormat = "yyyy-mm-dd"
+    const newSelect = format(dayy, myFormat)
     this.setState(prev => {
       return {
-      selectedDate: day,
+      selectedDate: newSelect,
       }
     });
   };
@@ -129,29 +134,13 @@ class Calendar extends React.Component {
     })
   }
 
-  onAddEvent = (event) => {
-    //associate event with calendar and user
-    this.props.onAddEvent(event)
-    this.props.history.push('/event')
-  }
-
   showForm = () => {
     if (this.state.form === true) {
-      return <EventForm thisCal={this.getCal()} onAddEvent={this.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+      return <EventForm onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
-      return <EventForm thisCal={this.getCal()} onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
+      return <EventForm  onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
 
-getCal = () => {
-  api.auth.getCalendars()
-    .then(data => {
-      return data.filter(calendar => calendar.user_id == this.props.user.id)
-    })
-}
-
-componentDidMount(){
-  this.getCal()
-}
 
   render() {
     return (
