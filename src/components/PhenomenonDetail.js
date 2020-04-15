@@ -1,4 +1,5 @@
 import React from 'react'
+import AuthHOC from '../HOCs/AuthHOC'
 
 const PhenomenonDetail = props => {
     const { phenomenon } = props
@@ -26,4 +27,4 @@ const PhenomenonDetail = props => {
 
 };
 
-export default PhenomenonDetail;
+export default AuthHOC(PhenomenonDetail);

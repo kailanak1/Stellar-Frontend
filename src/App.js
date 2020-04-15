@@ -82,6 +82,27 @@ addEvent = (event) => {
   //Little event bar comes up on the calendar day
 
 
+  // deleteEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "DELETE"
+  //   }
+  // }
+  
+
+  // editEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "PUT", 
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json"
+  //       // add authorization localStorage?
+  //     }, 
+  //     body: JSON.stringify(editedEvent)
+  //   }
+  //   .then(resp => resp.json())
+  //   .then(data => console.log(data))
+  // }
+
 createUser = (event) => {
   let newUser = {
     avatar: event.target.name.value,
@@ -150,4 +171,5 @@ render() {
 }
 
 }
+
 

@@ -42,7 +42,6 @@ class UserEvent extends React.Component{
       </div>
     );
   }
-
 };
 
 export default AuthHOC(UserEvent);
