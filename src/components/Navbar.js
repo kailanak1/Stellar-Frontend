@@ -6,8 +6,12 @@ export default class Navbar extends React.Component {
 
   render(){
     const link = {
-      width: '100px',
-      padding: '12px',
+      width: '70px',
+      hieght: '30px',
+      fontSize: "20px",
+      fontFamily: 'Playfair Display cursive',
+      fontStyle: 'oblique', 
+      padding: '6px',
       margin: '0 6px 6px',
       background: 'purple',
       color: 'white',
@@ -56,6 +60,13 @@ export default class Navbar extends React.Component {
           background: "black"
         }}
         >Home</NavLink>
+
+        <NavLink
+        to="/"
+        exact
+        style={link}
+        onClick={this.props.logout}
+        >Logout</NavLink> 
 
     </div>
   );

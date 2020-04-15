@@ -18,7 +18,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       auth: {
-        user: {id: '', username: ''}
+        user: {}
       },
       photo: ""
     };
@@ -49,7 +49,10 @@ login = data => {
 
 logout = () => {
   localStorage.removeItem("token");
-  this.setState({ auth: { user: {} } });
+  this.setState({
+    auth: { user: {} },
+    errors: null 
+  });
 };
 
 addEvent = (event) => {
@@ -83,7 +86,7 @@ createUser = (event) => {
      if (!!res.id){
         this.login(res);
         this.setState({errors: false})
-        this.props.history.push('/calendar')
+        window.history.push('/calendar')
     } else {
         this.setState({errors: true})
     }
@@ -101,7 +104,8 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-        <Navbar user={this.state.auth.user}/>
+        <h1 style={{flexBasis: '40%', fontStyle: 'oblique'}}>Stellar</h1>
+        <Navbar style={{flexBasis: '40%'}} logout={this.logout} user={this.state.auth.user}/>
         </header>
         <div className = "main">
           <Route

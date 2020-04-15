@@ -1,10 +1,7 @@
 import React from 'react'
 
 export default class Signup extends React.Component {
-    
-componentDidMount() {
-    console.log(this.props.show)
-}
+
 
 handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +16,7 @@ render(){
     
     return (  
       <div id="signup">
-        {this.props.appState.errors ? <h3 style={{color: white}}>Error! This username has already been taken. Please try again.</h3> : null}
+        {this.props.appState.errors ? <h3 style={{color: 'white'}}>Error! This username has already been taken. Please try again.</h3> : null}
         <form id="event-form" onSubmit={this.handleSubmit}>
             <label>Name</label><br></br>
             <input type='text' placeholder="name" name='name'/><br></br><label>Username</label><br></br>
