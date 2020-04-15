@@ -2,31 +2,31 @@ import React from 'react'
 import {api} from '../services/api'
 
 export default class EventForm extends React.Component {
-  state = {
-    currentUser: '',
-    currentCal: ''
-  }
+//   state = {
+//     currentUser: '',
+//     currentCal: ''
+//   }
     
-componentDidMount() {
-    api.auth.getCurrentUser().then(data => {
-      this.setState({
-        currentUser: data
-      }, () => {
-        this.getCal()
-      })
-    })
-}
+// componentDidMount() {
+//     api.auth.getCurrentUser().then(data => {
+//       this.setState({
+//         currentUser: data
+//       }, () => {
+//         this.getCal()
+//       })
+//     })
+// }
 
-getCal = () => {
-  api.auth.getCalendars()
-    .then(data => {
-      console.log(data)
-      // const thisCal = data.filter(calendar => calendar.user_id == this.state.currentUser.id)
-      this.setState({
-        currentCal: data
-      })
-    })
-}
+// getCal = () => {
+//   api.auth.getCalendars()
+//     .then(data => {
+//       console.log(data)
+//       const thisCal = data.filter(calendar => calendar.user_id == this.state.currentUser.id)
+//       this.setState({
+//         currentCal: data
+//       })
+//     })
+// }
 
 handleSubmit = (event) => {
     event.preventDefault();
@@ -53,8 +53,7 @@ render(){
             <input type='text' placeholder={'meteor shower'} name='title'/><br></br><br></br>
             <label>Any Details?</label><br></br>
             <input type='textarea' name='details'/><br></br><br></br>
-            <input type="hidden" name="user" value={this.state.currentUser}/>
-            <input type="hidden" name="calendar" value={this.state.currentCal}/>
+            
             <input type="submit" ></input>
         </form>
       </div>

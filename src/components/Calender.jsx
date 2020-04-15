@@ -137,19 +137,22 @@ class Calendar extends React.Component {
     if (this.state.form === true) {
       return <EventForm onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
-      return <EventForm  onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
+      return <EventForm date={this.state.selectedDate} onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
 
 
   render() {
     return (
       <div className="flex-container">
-          <div className="calendar left-column">
-            <h1>My Calendar</h1>
+        <div className="left-column">
+          <h1 style={{color:'white', fontSize:'40px'}}>My Calendar</h1>
+          <div className="calendar">
             {this.renderHeader()}
             {this.renderDays()}
             {this.renderCells()}
-            <input type="button" onClick={this.handleClick} value="Add Event"></input>
+          </div>
+          <br></br>
+          <input className="home-buttons" style={{background:'purple'}} type="button" onClick={this.handleClick} value="Add Event"></input>
           </div>
 
           <div className="right-column">

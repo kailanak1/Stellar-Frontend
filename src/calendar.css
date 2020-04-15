@@ -53,7 +53,7 @@ header {
   width: 100%;
   padding: 1.75em 0;
   border-bottom: 1px solid var(--border-color);
-  background: var(--neutral-color);
+  /* background: var(--neutral-color); */
 }
 
 header #logo {
@@ -117,7 +117,7 @@ calendarMain {
 .calendar {
   display: block;
   position: relative;
-  width: 40%;
+  width: 100%;
   justify-content: center;
   background: var(--neutral-color);
   padding: 10px;
