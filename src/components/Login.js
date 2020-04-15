@@ -20,7 +20,7 @@ export default class Login extends React.Component{
         api.auth.login(this.state.fields).then(res => {
             console.log(res)
             if (!res.errors){
-                this.props.onLogin(res);
+                this.props.onLogin(res.user);
                 this.props.history.push('/calendar')
             } else {
                 this.setState({errors: true})

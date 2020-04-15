@@ -50,6 +50,17 @@ const getCurrentUser = () => {
   });
 };
 
+const createUser = data => {
+  return fetch(`${API_ROOT}/signup`, {
+    method: "POST",
+    headers: {      
+      "Content-Type": "application/json",
+      Accept: "application/json"
+      },
+    body: JSON.stringify({user: data})
+  }).then(res => res.json());
+};
+
 const getPhotos = (searchTerm) => {
     return fetch(`https://api.unsplash.com/search/photos?query=${searchTerm}&client_id=qj3dfpSydcMDVv4cmGnE6bxKn_1PYW3-JLvt_IJCLJs`, {headers: headers()})
     .then(res => {
@@ -61,7 +72,8 @@ export const api = {
   auth: {
     login,
     getCurrentUser,
-    getCalendars
+    getCalendars,
+    createUser
   },
   constellations: {
     getConstellations
