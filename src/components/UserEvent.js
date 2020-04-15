@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import AuthHOC from '../HOCs/AuthHOC'
 
 const  UserEvent = ({ userevent }) => {
   return (
@@ -9,4 +10,4 @@ const  UserEvent = ({ userevent }) => {
   );
 };
 
-export default UserEvent;
+export default AuthHOC(UserEvent);

@@ -1,4 +1,5 @@
 import React from 'react'
+import AuthHOC from '../HOCs/AuthHOC'
 
 const ConstellationDetail = props => {
     const { star } = props
@@ -41,4 +42,4 @@ const ConstellationDetail = props => {
 
 };
 
-export default ConstellationDetail;
+export default AuthHOC(ConstellationDetail);

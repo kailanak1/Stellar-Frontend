@@ -1,4 +1,5 @@
 import React from 'react'
+import AuthHOC from '../HOCs/AuthHOC'
 
 const PhenomenonDetail = props => {
     const { phenomenon } = props
@@ -16,7 +17,7 @@ const PhenomenonDetail = props => {
           </div>
 
           <div className="meta text-wrap">
-            <h5>{phenomenon.Month} {phenomenon.Date}, at {phenomenon.LocalTime}</h5>
+            <h4>{phenomenon.Month} {phenomenon.Date}, at {phenomenon.LocalTime}</h4>
           </div>
         </div>
         <br></br>
@@ -26,4 +27,4 @@ const PhenomenonDetail = props => {
 
 };
 
-export default PhenomenonDetail;
+export default AuthHOC(PhenomenonDetail);

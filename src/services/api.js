@@ -25,7 +25,7 @@ const getCalendars = () => {
 };
 
 const getPhenomena = () => {
-    return fetch(`${API_ROOT}/phenomena`, {headers: headers() })
+    return fetch(`${API_ROOT}/sky_events`, {headers: headers() })
     .then(res => res.json())
 }
 
@@ -43,10 +43,9 @@ const login = data => {
 };
 
 const getCurrentUser = () => {
-  return fetch(`${API_ROOT}/profile`, {
+  return fetch(`${API_ROOT}/current_user`, {
     headers: headers()
   }).then(res => {
-    // console.log(res)
     return res.json();
   });
 };

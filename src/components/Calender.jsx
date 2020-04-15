@@ -12,12 +12,15 @@ import startOfWeek from 'date-fns/startOfWeek'
 import '../calendar.css'
 import EventForm from './AddEvent'
 import {api} from '../services/api'
+import AuthHOC from '../HOCs/AuthHOC'
 
+let currentUser
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
-    form: false
+    form: false,
+    events: []
   };
 
   renderHeader() {
@@ -83,7 +86,7 @@ class Calendar extends React.Component {
                 : isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(cloneDay)}
+            onClick={() => this.onDateClick(cloneDay, currentMonth)}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -101,19 +104,14 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = day => {
+  onDateClick = (day) => {
+    const newSelect = day.toISOString().slice(0,10)
+    console.log(newSelect)
     this.setState(prev => {
       return {
-      selectedDate: day,
+      selectedDate: newSelect,
       }
     });
-    // //ADD CLASS TOGGLE To SHOW/HIDE THE ADD EVENT FORM
-    // if (this.state.form){
-    //   document.getElementbyId("EventForm").style.display = 'block'
-    // } else {
-    //   document.getElementbyId("EventForm").style.display = 'none'
-    // }
-
   };
 
   nextMonth = () => {
@@ -136,29 +134,13 @@ class Calendar extends React.Component {
     })
   }
 
-  onAddEvent = (event) => {
-    //associate event with calendar and user
-    this.props.onAddEvent(event)
-    this.props.history.push('/event')
-  }
-
   showForm = () => {
     if (this.state.form === true) {
-      return <EventForm onAddEvent={this.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+      return <EventForm onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
-      return <EventForm onAddEvent={this.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
+      return <EventForm  onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
 
-getCal = () => {
-  api.auth.getCalendars()
-    .then(data => {
-      console.log(data.filter(calendar => calendar.user_id == this.props.user.id))
-    })
-}
-
-componentDidMount(){
-  this.getCal()
-}
 
   render() {
     return (
@@ -179,5 +161,5 @@ componentDidMount(){
   }
 }
 
-export default Calendar;
+export default AuthHOC(Calendar);
 

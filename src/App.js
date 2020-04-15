@@ -20,7 +20,7 @@ export default class App extends React.Component {
       auth: {
         user: {id: '', username: ''}
       },
-      photo: ""
+      events: []
     };
   }
 
@@ -31,21 +31,18 @@ componentDidMount() {
   if (token) {
     // make a request to the backend and find our user
     api.auth.getCurrentUser().then(user => {
-      // console.log(user)
-      const updatedState = { ...this.state.auth, user: user };
+      const updatedState = { user };
+      console.log(updatedState)
       this.setState({ auth: updatedState });
     });
   }
-  // api.phenomena.getPhenomena().then(data => {console.log(data)})
-  // api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data)})
 }
 
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
-
-  const updatedState = { ...this.state.auth, user: {id: data.user.id,  username: data.user.username}};
-
+  const updatedState = { user: {id: data.user.id,  username: data.user.username}};
+  console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
     auth: updatedState });
@@ -53,17 +50,15 @@ login = data => {
 
 logout = () => {
   localStorage.removeItem("token");
-  this.setState({ auth: { user: {} } });
+  this.setState({ auth: { user: {} }, events: [] });
 };
 
 addEvent = (event) => {
-  console.log("you're going to a party")
   let newEvent = {
     title: event.target.title.value,
     date: event.target.date.value,
     time: event.target.time.value,
     details: event.target.details.value,
-    calendar_id: this.state.auth.user.calendar.id,
     user_id: this.state.auth.user.id
   }
   fetch("http://localhost:3000/api/v1/events", {
@@ -79,25 +74,26 @@ addEvent = (event) => {
   .then(data => console.log(data))
   }
 
-  deleteEvent = (eventId) => {
-    fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
-      method: "DELETE"}
-    }
-  }
+  // deleteEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "DELETE"
+  //   }
+  // }
+  
 
-  editEvent = (eventId) => {
-    fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
-      method: "PUT", 
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-        // add authorization localStorage?
-      }, 
-      body: JSON.stringify(editedEvent)
-    }
-    .then(resp => resp.json())
-    .then(data => console.log(data))
-  }
+  // editEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "PUT", 
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json"
+  //       // add authorization localStorage?
+  //     }, 
+  //     body: JSON.stringify(editedEvent)
+  //   }
+  //   .then(resp => resp.json())
+  //   .then(data => console.log(data))
+  // }
 
 createUser = (event) => {
   console.log(event)
@@ -139,13 +135,16 @@ render() {
             path='/event' 
             render={props => <UserEvent {...props} onAddEvent={this.addEvent} onDeleteEvent={this.deleteEvent} onEditEvent={this.editEvent}/>}  />  
   
-              <Route path="/phenomena" component={Phenomena} />
+          <Route 
+            exact
+            path="/phenomena"
+            component={Phenomena} />
     
-              <Route
-                exact
-                path="/"
-                render={props => <LandingPage {...props}/>}
-              />     
+          <Route
+            exact
+            path="/"
+            render={props => <LandingPage {...props}/>}
+          />     
           </div>
      
         </Router>
@@ -154,4 +153,5 @@ render() {
 }
 
 }
+
 
