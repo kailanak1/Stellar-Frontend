@@ -53,7 +53,7 @@ header {
   width: 100%;
   padding: 1.75em 0;
   border-bottom: 1px solid var(--border-color);
-  background: var(--neutral-color);
+  /* background: var(--neutral-color); */
 }
 
 header #logo {
@@ -117,7 +117,7 @@ calendarMain {
 .calendar {
   display: block;
   position: relative;
-  width: 40%;
+  width: 100%;
   justify-content: center;
   background: var(--neutral-color);
   padding: 10px;
@@ -178,6 +178,12 @@ calendarMain {
 .calendar .body .selected {
   border-left: 10px solid transparent;
   border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+  border-image-slice: 1;
+}
+
+.calendar .body .evented {
+  border-top: 15px solid transparent;
+  border-image: linear-gradient(45deg, #5e09be 0%,#ac09c2 40%);
   border-image-slice: 1;
 }
 

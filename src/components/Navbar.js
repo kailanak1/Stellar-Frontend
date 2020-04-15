@@ -11,7 +11,8 @@ export default class Navbar extends React.Component {
       fontSize: "20px",
       fontFamily: 'Playfair Display cursive',
       fontStyle: 'oblique', 
-      padding: '6px',
+      textDecoration: 'none',
+      padding: '10px',
       margin: '0 6px 6px',
       background: 'purple',
       color: 'white',
@@ -52,15 +53,22 @@ export default class Navbar extends React.Component {
           background: 'black'
         }}>My Calendar</NavLink> }
 
-        <NavLink
+      {!localStorage.getItem("token") ? <NavLink
         to="/"
         exact
         style={link}
         activeStyle={{
-          background: "black"
+          background: 'black'
         }}
-        >Home</NavLink>
+        >Home</NavLink> : <NavLink 
+        to="/events"
+        exact
+        style={link}
+        activeStyle={{
+          background: 'black'
+        }}>My Events</NavLink> }
 
+        {!!localStorage.getItem("token") == ''}
         <NavLink
         to="/"
         exact

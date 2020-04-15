@@ -19,8 +19,7 @@ export default class App extends React.Component {
     this.state = {
       auth: {
         user: {}
-      },
-      photo: ""
+      }
     };
   }
 
@@ -40,18 +39,20 @@ componentDidMount() {
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
-  const updatedState = { user: {id: data.id,  username: data.username}};
+  const updatedState = { user: {id: data.user.id,  username: data.user.username}};
   console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
-    auth: updatedState });
+    auth: updatedState
+  });
 };
 
 logout = () => {
   localStorage.removeItem("token");
   this.setState({
     auth: { user: {} },
-    errors: null 
+    errors: null,
+    events: []
   });
 };
 
@@ -73,8 +74,13 @@ addEvent = (event) => {
     body: JSON.stringify(newEvent)
   })
   .then(resp => resp.json())
-  .then(data => console.log(data))
+  .then(data => 
+    console.log(data))
   }
+  //Added to user's event list (should be automatic through ActiveRecord association)
+  //Event view / detail is created?
+  //Little event bar comes up on the calendar day
+
 
 createUser = (event) => {
   let newUser = {
@@ -83,20 +89,16 @@ createUser = (event) => {
     password: event.target.password.value,
   }
   api.auth.createUser(newUser).then(res => {
-     if (!!res.id){
+    console.log(res)
+     if (!!res.user.id){
         this.login(res);
         this.setState({errors: false})
-        window.history.push('/calendar')
+        //NEED TO REDIRECT
     } else {
         this.setState({errors: true})
     }
 })
 }
-  //User and user's calendar are identified
-  //Association is created
-  //Added to user's event list
-  //Event view / detail is created?
-  //Little event bar comes up on the calendar day
 
 
 render() {
@@ -127,8 +129,8 @@ render() {
 
           <Route 
             exact
-            path='/event' 
-            render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
+            path='/events' 
+            render={props => <UserEvent {...props} user={this.state.auth.user} />} />  
   
           <Route 
             exact
