@@ -18,7 +18,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       auth: {
-        user: {id: '', username: ''}
+        user: {}
       },
       events: []
     };
@@ -32,7 +32,6 @@ componentDidMount() {
     // make a request to the backend and find our user
     api.auth.getCurrentUser().then(user => {
       const updatedState = { user };
-      console.log(updatedState)
       this.setState({ auth: updatedState });
     });
   }
@@ -41,7 +40,7 @@ componentDidMount() {
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
-  const updatedState = { user: {id: data.user.id,  username: data.user.username}};
+  const updatedState = { user: {id: data.id,  username: data.username}};
   console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
@@ -50,7 +49,10 @@ login = data => {
 
 logout = () => {
   localStorage.removeItem("token");
-  this.setState({ auth: { user: {} }, events: [] });
+  this.setState({
+    auth: { user: {} },
+    errors: null 
+  });
 };
 
 addEvent = (event) => {
@@ -96,7 +98,20 @@ addEvent = (event) => {
   // }
 
 createUser = (event) => {
-  console.log(event)
+  let newUser = {
+    avatar: event.target.name.value,
+    username: event.target.username.value,
+    password: event.target.password.value,
+  }
+  api.auth.createUser(newUser).then(res => {
+     if (!!res.id){
+        this.login(res);
+        this.setState({errors: false})
+        window.history.push('/calendar')
+    } else {
+        this.setState({errors: true})
+    }
+})
 }
   //User and user's calendar are identified
   //Association is created
@@ -110,7 +125,8 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-        <Navbar user={this.state.auth.user}/>
+        <h1 style={{flexBasis: '40%', fontStyle: 'oblique'}}>Stellar</h1>
+        <Navbar style={{flexBasis: '40%'}} logout={this.logout} user={this.state.auth.user}/>
         </header>
         <div className = "main">
           <Route
@@ -121,7 +137,7 @@ render() {
           <Route
             exact
             path="/signup"
-            render={props => <Signup {...props} onCreateUser={this.createUser} />}/>
+            render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
           <Route path="/constellations" component={ConstellationList} />
 

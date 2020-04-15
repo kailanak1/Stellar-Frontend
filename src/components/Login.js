@@ -20,7 +20,7 @@ export default class Login extends React.Component{
         api.auth.login(this.state.fields).then(res => {
             console.log(res)
             if (!res.errors){
-                this.props.onLogin(res);
+                this.props.onLogin(res.user);
                 this.props.history.push('/calendar')
             } else {
                 this.setState({errors: true})
@@ -48,7 +48,7 @@ export default class Login extends React.Component{
                         <input type="text" name="username" placeholder="username" value={fields.username} onChange={this.handleChange}></input>
                         <label>Password: </label>
                         <input type="password" name="password" placeholder="password" value={fields.password} onChange={this.handleChange}></input>
-                        <button type="submit">Log In</button>
+                        <button className="home-buttons" type="submit">Log In</button>
                    </form>
                 </div>
             </div>

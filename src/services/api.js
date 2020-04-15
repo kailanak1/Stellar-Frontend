@@ -43,11 +43,24 @@ const login = data => {
 };
 
 const getCurrentUser = () => {
+  console.log("getting current user", headers)
   return fetch(`${API_ROOT}/current_user`, {
     headers: headers()
   }).then(res => {
+    console.log(res)
     return res.json();
   });
+};
+
+const createUser = data => {
+  return fetch(`${API_ROOT}/signup`, {
+    method: "POST",
+    headers: {      
+      "Content-Type": "application/json",
+      Accept: "application/json"
+      },
+    body: JSON.stringify({user: data})
+  }).then(res => res.json());
 };
 
 const getPhotos = (searchTerm) => {
@@ -61,7 +74,8 @@ export const api = {
   auth: {
     login,
     getCurrentUser,
-    getCalendars
+    getCalendars,
+    createUser
   },
   constellations: {
     getConstellations
