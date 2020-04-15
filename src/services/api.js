@@ -52,6 +52,14 @@ const getCurrentUser = () => {
   });
 };
 
+const getEvents = () => {
+  return fetch(`${API_ROOT}/events`, {
+    headers: headers()
+  }).then(res => {
+    return res.json()
+    })
+}
+
 const createUser = data => {
   return fetch(`${API_ROOT}/signup`, {
     method: "POST",
@@ -88,5 +96,8 @@ export const api = {
   },
   moonPhase: {
     getMoonPhase
+  },
+  events: {
+    getEvents
   }
 };

@@ -16,7 +16,7 @@ render(){
     
     return (  
       <div id="signup">
-        {this.props.appState.errors ? <h3 style={{color: 'white'}}>Error! This username has already been taken. Please try again.</h3> : null}
+        {this.props.appState.errors ? <h3 style={{color: 'white'}}>Error! This username has already been taken. Please try again.</h3> : <h3>Enter the information below to create an account.</h3>}
         <form id="event-form" onSubmit={this.handleSubmit}>
             <label>Name</label><br></br>
             <input type='text' placeholder="name" name='name'/><br></br><label>Username</label><br></br>
