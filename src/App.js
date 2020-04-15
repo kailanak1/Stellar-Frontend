@@ -20,7 +20,7 @@ export default class App extends React.Component {
       auth: {
         user: {id: '', username: ''}
       },
-      events: []
+      photo: ""
     };
   }
 
@@ -32,7 +32,6 @@ componentDidMount() {
     // make a request to the backend and find our user
     api.auth.getCurrentUser().then(user => {
       const updatedState = { user };
-      console.log(updatedState)
       this.setState({ auth: updatedState });
     });
   }
@@ -41,7 +40,7 @@ componentDidMount() {
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
-  const updatedState = { user: {id: data.user.id,  username: data.user.username}};
+  const updatedState = { user: {id: data.id,  username: data.username}};
   console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
@@ -50,7 +49,7 @@ login = data => {
 
 logout = () => {
   localStorage.removeItem("token");
-  this.setState({ auth: { user: {} }, events: [] });
+  this.setState({ auth: { user: {} } });
 };
 
 addEvent = (event) => {
@@ -74,8 +73,21 @@ addEvent = (event) => {
   .then(data => console.log(data))
   }
 
-createUser = (e) => {
-  console.log(e)
+createUser = (event) => {
+  let newUser = {
+    avatar: event.target.name.value,
+    username: event.target.username.value,
+    password: event.target.password.value,
+  }
+  api.auth.createUser(newUser).then(res => {
+     if (!!res.id){
+        this.login(res);
+        this.setState({errors: false})
+        this.props.history.push('/calendar')
+    } else {
+        this.setState({errors: true})
+    }
+})
 }
   //User and user's calendar are identified
   //Association is created
@@ -100,7 +112,7 @@ render() {
           <Route
             exact
             path="/signup"
-            render={props => <Signup {...props} onCreateUser={this.createUser} />}/>
+            render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
           <Route path="/constellations" component={ConstellationList} />
 
