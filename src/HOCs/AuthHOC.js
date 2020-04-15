@@ -1,8 +1,9 @@
 import React, {Fragment} from "react"
-import Redirect from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import {api} from "../services/api"
 
 const AuthHOC = WrappedComponent => {
+    console.log(WrappedComponent)
 
   return class AuthHOC extends React.Component {
 
@@ -17,21 +18,16 @@ const AuthHOC = WrappedComponent => {
 
     checkLogin = () => {
         if (!localStorage.getItem("token")) {
-            this.setState({
-                authorized: false,
-                responseCollected: true
-            })
+            console.log("login chain 1")
+            this.props.history.push("/login")
         } else {
             api.auth.getCurrentUser().then(resp => {
                 if (resp.error){
-                    this.setState({
-                        authorized: false,
-                        responseCollected: true
-                    })  
+                    this.props.history.push("/login")
                 } else {
+                    console.log("got down the check login chain")
                     this.setState({
-                        authorized: true,
-                        responseCollected: true
+                        authorized: true
                     }) 
                 }
             })
@@ -39,19 +35,27 @@ const AuthHOC = WrappedComponent => {
     }
 
     isAuthorized = () => {
-        return this.state.authorized && this.state.responseCollection
+        return this.state.authorized 
     }
 
-    isRejected = () => {
-        return !this.state.authorized && this.state.responseCollection
-    }
+    // isRejected = () => {
+    //     console.log("is rejecting")
+    //     console.log(this.state)
+    //     return !this.state.authorized && this.state.responseCollection
+    // }
 
 
     render(){
-      return (<div>{this.isAuthorized() ? <Wrapped Component {...this.props}/> : 
-      this.isRejected() ? <Redirect to="/login"/> : null} </div>)
+      return (
+      <div>
+          {this.isAuthorized() ? (
+          <WrappedComponent {...this.props}/> 
+          ): (
+            <Redirect to="/login"/> 
+          )}
+        </div>     
+      )
     }
-}
 }
 
 export default AuthHOC;

@@ -19,9 +19,8 @@ export default class App extends React.Component {
     super();
     this.state = {
       auth: {
-        user: {id: '', username: ''}
-      },
-      photo: ""
+        user: {}
+      }
     };
   }
 
@@ -32,8 +31,7 @@ componentDidMount() {
   if (token) {
     // make a request to the backend and find our user
     api.auth.getCurrentUser().then(user => {
-      // console.log(user)
-      const updatedState = { ...this.state.auth, user: user };
+      const updatedState = { user };
       this.setState({ auth: updatedState });
     });
   }
@@ -44,27 +42,29 @@ componentDidMount() {
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
 
 login = data => {
-
-  const updatedState = { ...this.state.auth, user: {id: data.user.id,  username: data.user.username}};
-
+  const updatedState = { user: {id: data.user.id,  username: data.user.username}};
+  console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
-    auth: updatedState });
+    auth: updatedState
+  });
 };
 
 logout = () => {
   localStorage.removeItem("token");
-  this.setState({ auth: { user: {} } });
+  this.setState({
+    auth: { user: {} },
+    errors: null,
+    events: []
+  });
 };
 
 addEvent = (event) => {
-  console.log("you're going to a party")
   let newEvent = {
     title: event.target.title.value,
     date: event.target.date.value,
     time: event.target.time.value,
     details: event.target.details.value,
-    calendar_id: this.state.auth.user.calendar.id,
     user_id: this.state.auth.user.id
   }
   fetch("http://localhost:3000/api/v1/events", {
@@ -77,17 +77,52 @@ addEvent = (event) => {
     body: JSON.stringify(newEvent)
   })
   .then(resp => resp.json())
-  .then(data => console.log(data))
+  .then(data => 
+    console.log(data))
   }
-
-createUser = (event) => {
-  console.log(event)
-}
-  //User and user's calendar are identified
-  //Association is created
-  //Added to user's event list
+  //Added to user's event list (should be automatic through ActiveRecord association)
   //Event view / detail is created?
   //Little event bar comes up on the calendar day
+
+
+  // deleteEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "DELETE"
+  //   }
+  // }
+  
+
+  // editEvent = (eventId) => {
+  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+  //     method: "PUT", 
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Accept: "application/json"
+  //       // add authorization localStorage?
+  //     }, 
+  //     body: JSON.stringify(editedEvent)
+  //   }
+  //   .then(resp => resp.json())
+  //   .then(data => console.log(data))
+  // }
+
+createUser = (event) => {
+  let newUser = {
+    avatar: event.target.name.value,
+    username: event.target.username.value,
+    password: event.target.password.value,
+  }
+  api.auth.createUser(newUser).then(res => {
+    console.log(res)
+     if (!!res.user.id){
+        this.login(res);
+        this.setState({errors: false})
+        //NEED TO REDIRECT
+    } else {
+        this.setState({errors: true})
+    }
+})
+}
 
 
 render() {
@@ -95,7 +130,8 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-        <Navbar user={this.state.auth.user}/>
+        <h1 style={{flexBasis: '40%', fontStyle: 'oblique'}}>Stellar</h1>
+        <Navbar style={{flexBasis: '40%'}} logout={this.logout} user={this.state.auth.user}/>
         </header>
         <div className = "main">
           <Route
@@ -106,7 +142,7 @@ render() {
           <Route
             exact
             path="/signup"
-            render={props => <Signup {...props} onCreateUser={this.createUser} />}/>
+            render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
           <Route path="/constellations" component={ConstellationList} />
 
@@ -117,8 +153,8 @@ render() {
 
           <Route 
             exact
-            path='/event' 
-            render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
+            path='/events' 
+            render={props => <UserEvent {...props} user={this.state.auth.user} />} />  
   
           <Route 
             exact
@@ -143,4 +179,5 @@ render() {
 }
 
 }
+
 

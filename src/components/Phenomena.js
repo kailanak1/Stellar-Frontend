@@ -1,8 +1,9 @@
 import React from 'react'
 import { api } from '../services/api'
 import PhenomenonDetail from './PhenomenonDetail'
+import AuthHOC from '../HOCs/AuthHOC'
 
-export default class Phenomena extends React.Component{
+class Phenomena extends React.Component{
     constructor() {
         super()
         this.state = {
@@ -33,3 +34,5 @@ export default class Phenomena extends React.Component{
     }
 
 }
+
+export default AuthHOC(Phenomena)

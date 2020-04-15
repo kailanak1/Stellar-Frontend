@@ -47,7 +47,7 @@ export default class MoonPhase extends React.Component {
             </div>
         )
     }
-  
+    //<img src="https://www.moonconnection.com/images/moon_phases_diagram.jpg" alt="lunar cycle">
   
     render(){
       return (

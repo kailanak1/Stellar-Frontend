@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const ConstellationDetail = props => {
     const { star } = props
 
