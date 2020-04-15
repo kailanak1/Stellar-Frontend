@@ -29,7 +29,7 @@ class LandingPage extends React.Component{
 }
 
 // componentDidMount() {
-//     this.getPic();  
+      
 // }
 
   render(){

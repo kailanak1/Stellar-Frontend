@@ -10,6 +10,7 @@ import Calendar from './components/Calender.jsx'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
 import UserEvent from './components/UserEvent'
+import Signup from './components/Signup'
 
 let myPhoto;
 export default class App extends React.Component {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
     super();
     this.state = {
       auth: {
-        user: {id: 1, calendar: {id:1}}
+        user: {id: '', username: ''}
       },
       photo: ""
     };
@@ -27,7 +28,6 @@ export default class App extends React.Component {
 //all the methods
 componentDidMount() {
   const token = localStorage.getItem("token");
-  //console.log(token)
   if (token) {
     // make a request to the backend and find our user
     api.auth.getCurrentUser().then(user => {
@@ -40,10 +40,15 @@ componentDidMount() {
   // api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data)})
 }
 
+// calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
+
 login = data => {
-  const updatedState = { ...this.state.auth, user: {id: data.id,  username: data.username }};
+
+  const updatedState = { ...this.state.auth, user: {id: data.user.id,  username: data.user.username}};
+
   localStorage.setItem("token", data.jwt);
-  this.setState({ auth: updatedState });
+  this.setState({ 
+    auth: updatedState });
 };
 
 logout = () => {
@@ -74,7 +79,29 @@ addEvent = (event) => {
   .then(data => console.log(data))
   }
 
+  deleteEvent = (eventId) => {
+    fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+      method: "DELETE"}
+    }
+  }
 
+  editEvent = (eventId) => {
+    fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
+      method: "PUT", 
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+        // add authorization localStorage?
+      }, 
+      body: JSON.stringify(editedEvent)
+    }
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+  }
+
+createUser = (event) => {
+  console.log(event)
+}
   //User and user's calendar are identified
   //Association is created
   //Added to user's event list
@@ -95,18 +122,23 @@ render() {
             path="/login"
             render={props => <Login {...props} onLogin={this.login} />}/>
 
+          <Route
+            exact
+            path="/signup"
+            render={props => <Signup {...props} onCreateUser={this.createUser} />}/>
+
           <Route path="/constellations" component={ConstellationList} />
 
           <Route 
             exact
             path='/calendar' 
-            render={props => <Calendar {...props} onAddEvent={this.addEvent}/>} />
+            render={props => <Calendar {...props} user={this.state.auth.user} onAddEvent={this.addEvent}/>} />
 
           <Route 
             exact
             path='/event' 
-            render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
-   
+            render={props => <UserEvent {...props} onAddEvent={this.addEvent} onDeleteEvent={this.deleteEvent} onEditEvent={this.editEvent}/>}  />  
+  
               <Route path="/phenomena" component={Phenomena} />
     
               <Route
