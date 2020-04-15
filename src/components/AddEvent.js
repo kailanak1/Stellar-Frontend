@@ -1,9 +1,31 @@
 import React from 'react'
+import {api} from '../services/api'
 
 export default class EventForm extends React.Component {
+  state = {
+    currentUser: '',
+    currentCal: ''
+  }
     
 componentDidMount() {
-    console.log(this.props.show)
+    api.auth.getCurrentUser().then(data => {
+      this.setState({
+        currentUser: data
+      }, () => {
+        this.getCal()
+      })
+    })
+}
+
+getCal = () => {
+  api.auth.getCalendars()
+    .then(data => {
+      console.log(data)
+      // const thisCal = data.filter(calendar => calendar.user_id == this.state.currentUser.id)
+      this.setState({
+        currentCal: data
+      })
+    })
 }
 
 handleSubmit = (event) => {
@@ -20,7 +42,7 @@ render(){
       <div id="EventForm">
         <form id="event-form" onSubmit={this.handleSubmit}>
             <label>Event Date</label><br></br>
-            <input type='text' placeholder={this.props.date} name='date'/>
+            <input type='date' placeholder={this.props.date} name='date'/>
             <br></br>
             <br></br>
             <label>Time of event</label>
@@ -31,6 +53,8 @@ render(){
             <input type='text' placeholder={'meteor shower'} name='title'/><br></br><br></br>
             <label>Any Details?</label><br></br>
             <input type='textarea' name='details'/><br></br><br></br>
+            <input type="hidden" name="user" value={this.state.currentUser}/>
+            <input type="hidden" name="calendar" value={this.state.currentCal}/>
             <input type="submit" ></input>
         </form>
       </div>
