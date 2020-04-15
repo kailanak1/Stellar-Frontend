@@ -43,6 +43,7 @@ export default class Login extends React.Component{
                {this.state.errors ? <h1>Uh-oh, something went wrong... Please try again.</h1> : <br></br>} 
                 <br></br>
                <div>
+                    <h3 style={{color:'white'}}>Log in for full access to all of Stellar's functionality:</h3>
                    <form onSubmit={this.handleSubmit}>
                         <label>Username: </label><br></br>
                         <input type="text" name="username" placeholder="username" value={fields.username} onChange={this.handleChange}></input><br></br><br></br>

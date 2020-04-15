@@ -7,7 +7,10 @@ export default class EventForm extends React.Component {
 //     currentCal: ''
 //   }
     
-// componentDidMount() {
+componentDidUpdate() {
+  let dayday = this.props.date.toString()
+  // console.log(dayday.toISOString())
+}
 //     api.auth.getCurrentUser().then(data => {
 //       this.setState({
 //         currentUser: data
@@ -33,6 +36,10 @@ handleSubmit = (event) => {
     this.props.onAddEvent(event);
 }
 
+handleChange = (event) => {
+  this.props.updateDate(event.target.value)
+}
+
 render(){
     //receive props from CALENDAR SELECTION
     const dateSelection = this.props.day
@@ -42,7 +49,7 @@ render(){
       <div id="EventForm">
         <form id="event-form" onSubmit={this.handleSubmit}>
             <label>Event Date</label><br></br>
-            <input type='date' placeholder={this.props.date} name='date'/>
+            <input onChange={this.handleChange} type='date' placeholder={this.props.date} name='date' defaultValue={this.props.date}/>
             <br></br>
             <br></br>
             <label>Time of event</label>
