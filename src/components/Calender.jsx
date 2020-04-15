@@ -103,10 +103,9 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = (day, month) => {
-    const dayy = `${day}-${month}`
-    const myFormat = "yyyy-mm-dd"
-    const newSelect = format(dayy, myFormat)
+  onDateClick = (day) => {
+    const newSelect = day.toISOString().slice(0,10)
+    console.log(newSelect)
     this.setState(prev => {
       return {
       selectedDate: newSelect,
