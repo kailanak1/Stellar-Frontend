@@ -28,7 +28,7 @@ export default class ConstellationList extends React.Component {
   render(){
     return (
       <div>
-        <h2>Constellations Galore</h2>
+        <h2 style={{color: "white"}}>Constellations Galore</h2>
         {this.renderConstellations()}
       </div>
       )

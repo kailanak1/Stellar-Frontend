@@ -9,6 +9,7 @@ const PhenomenonDetail = props => {
         className="ui card"
         key={phenomenon.id}
         onClick={null/*show detailed specs*/}
+        style={{color: "white"}}
       >
         <div className="content">
           <div className="header">
