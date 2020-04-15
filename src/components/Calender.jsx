@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import addMonths from 'date-fns/addMonths'
 import subMonths from 'date-fns/subMonths'
 import addDays from 'date-fns/addDays'
@@ -6,11 +6,11 @@ import format from 'date-fns/format'
 import startOfMonth from 'date-fns/startOfMonth'
 import endOfMonth from 'date-fns/endOfMonth'
 import endOfWeek from 'date-fns/endOfWeek'
-import isSameMonth from 'date-fns/isSameMonth'
 import isSameDay from 'date-fns/isSameDay'
 import startOfWeek from 'date-fns/startOfWeek'
 import '../calendar.css'
 import EventForm from './AddEvent'
+import AuthHOC from '../HOCs/AuthHOC'
 import {api} from '../services/api'
 
 let currentUser
@@ -19,9 +19,22 @@ class Calendar extends React.Component {
     currentMonth: new Date(),
     selectedDate: new Date(),
     form: false,
-    events: []
   };
 
+  componentDidMount(){
+    // if (!!this.props.events) {
+    //   let existingEvents = this.props.events.map(event =>
+    //     event.date)
+    //   this.setState({
+    //     events: existingEvents
+    //   })
+    // }
+    this.setState(prev => {
+      return {
+        selectedDate: prev.selectedDate.toISOString().slice(0,10)
+      }
+    })
+  }
 
   renderHeader() {
     const dateFormat = "MMMM yyyy";
@@ -66,6 +79,11 @@ class Calendar extends React.Component {
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
+    let existingEvents = []
+    if (!!this.props.user.events) {
+      existingEvents = this.props.events.map(event =>
+        event.date)
+    }
 
     const dateFormat = "d";
     const rows = [];
@@ -84,6 +102,9 @@ class Calendar extends React.Component {
             className={`col cell ${
               !checkSelect == selectedDate ? "disabled"
                 : checkSelect === selectedDate ? "selected" : ''
+            } ${
+              existingEvents.length == 0 ? ""
+                : existingEvents.includes(checkSelect) ? "evented" : ''
             }`}
             key={day}
             onClick={() => this.onDateClick(cloneDay)}
@@ -173,5 +194,5 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+export default AuthHOC(Calendar);
 

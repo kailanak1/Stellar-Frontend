@@ -19,8 +19,7 @@ export default class App extends React.Component {
     this.state = {
       auth: {
         user: {}
-      },
-      photo: ""
+      }
     };
   }
 
@@ -44,14 +43,16 @@ login = data => {
   console.log(updatedState)
   localStorage.setItem("token", data.jwt);
   this.setState({ 
-    auth: updatedState });
+    auth: updatedState
+  });
 };
 
 logout = () => {
   localStorage.removeItem("token");
   this.setState({
     auth: { user: {} },
-    errors: null 
+    errors: null,
+    events: []
   });
 };
 
@@ -73,7 +74,8 @@ addEvent = (event) => {
     body: JSON.stringify(newEvent)
   })
   .then(resp => resp.json())
-  .then(data => console.log(data))
+  .then(data => 
+    console.log(data))
   }
   //Added to user's event list (should be automatic through ActiveRecord association)
   //Event view / detail is created?
@@ -127,8 +129,8 @@ render() {
 
           <Route 
             exact
-            path='/event' 
-            render={props => <UserEvent {...props} onAddEvent={this.addEvent}/>} />  
+            path='/events' 
+            render={props => <UserEvent {...props} user={this.state.auth.user} />} />  
   
           <Route 
             exact

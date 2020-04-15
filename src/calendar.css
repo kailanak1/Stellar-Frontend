@@ -181,6 +181,12 @@ calendarMain {
   border-image-slice: 1;
 }
 
+.calendar .body .evented {
+  border-top: 15px solid transparent;
+  border-image: linear-gradient(45deg, #5e09be 0%,#ac09c2 40%);
+  border-image-slice: 1;
+}
+
 .calendar .body .row {
   border-bottom: 1px solid var(--border-color);
 }
