@@ -26,8 +26,8 @@ class Phenomena extends React.Component{
 
     render(){
         return (
-          <div>
-            <h2 style={{color: "white"}}>Phenomena</h2>
+          <div style={{color:'white'}}>
+            <h2>Phenomena</h2>
             {this.renderPhenomena()}
           </div>
         )

@@ -5,7 +5,7 @@ const PhenomenonDetail = props => {
     const { phenomenon } = props
 
   return (
-    <div className="ui column">
+    <div style={{color:'white'}} className="ui column">
       <div
         className="ui card"
         key={phenomenon.id}
