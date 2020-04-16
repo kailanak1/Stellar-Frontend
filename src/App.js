@@ -107,10 +107,10 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-        <h1 style={{margin: '5px', paddingLeft: '10px', paddingTop: '5px'}}>Stellar</h1>
-        <Navbar className='navbar' logout={this.logout} user={this.state.auth.user}/>
+          <h1 style={{margin: '5px', paddingLeft: '10px', paddingTop: '5px'}}>Stellar</h1>
+          <Navbar className='navbar' logout={this.logout} user={this.state.auth.user}/>
         </header>
-        <div >
+        <div className = "main">
           <Route
             exact
             path="/login"
@@ -121,7 +121,8 @@ render() {
             path="/signup"
             render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
-          <Route path="/constellations" component={ConstellationList} />
+          <Route exact path="/constellations" component={ConstellationList} />
+
 
           <Route path="/moonphase" component={MoonPhase} />
 
