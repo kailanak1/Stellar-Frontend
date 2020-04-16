@@ -166,7 +166,7 @@ class Calendar extends React.Component {
 
   showForm = () => {
     if (this.state.form === true) {
-      return <EventForm updateDate={this.updateDate} onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+      return <EventForm {...this.props} updateDate={this.updateDate} onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
       return <EventForm updateDate={this.updateDate} date={this.state.selectedDate} onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }

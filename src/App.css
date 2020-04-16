@@ -114,3 +114,8 @@ form {
 .events{
   color: white;
 }
+
+.navbar {
+  position: relative;
+  left: '100px'
+}

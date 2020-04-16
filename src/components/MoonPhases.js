@@ -1,1 +1,0 @@
-<img src="https://www.moonconnection.com/images/moon_phases_diagram.jpg" alt="lunar cycle">

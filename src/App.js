@@ -7,6 +7,7 @@ import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
 import Phenomena from './components/Phenomena'
 import Calendar from './components/Calender.jsx'
+import MoonPhase from './components/MoonPhase'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
 import UserEvent from './components/UserEvent'
@@ -121,6 +122,8 @@ render() {
             render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
           <Route path="/constellations" component={ConstellationList} />
+
+          <Route path="/moonphase" component={MoonPhase} />
 
           <Route 
             exact
