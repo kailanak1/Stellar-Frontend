@@ -1,7 +1,21 @@
 import React from 'react'
+import {api} from '../services/api'
 
 export default class Signup extends React.Component {
+  state = {
+    background: ''
+  }
 
+componentDidMount() {
+  api.photos.getPhotos('galaxy').then(data => {
+    this.setState({
+      background: data.results[0].urls.regular
+    }, () => {
+      document.getElementById('html').style.background = `url(${this.state.background}) no-repeat center center fixed`
+      document.getElementById('html').style.backgroundSize = 'cover'
+    })
+  })
+}
 
 handleSubmit = (event) => {
     event.preventDefault();

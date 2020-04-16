@@ -13,7 +13,9 @@ export default class ConstellationList extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() { 
+        document.getElementById('html').style.background = `url("https://images.unsplash.com/photo-1444080748397-f442aa95c3e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1790&q=80") no-repeat center center fixed`
+        document.getElementById('html').style.backgroundSize = 'cover'
     api.constellations.getConstellations().then(data => {
       this.setState({
         constellations: data

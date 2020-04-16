@@ -45,7 +45,7 @@ const ConstellationDetail = props => {
           </span><br></br>
           <br></br>
         </div>
-        <button onClick={props.goBack}>Back</button>
+        <button className='button' onClick={props.goBack}>Back</button>
         <br></br>
         <br></br>
         </div>
@@ -58,7 +58,7 @@ const ConstellationDetail = props => {
         <br></br>
       </div>
       <br></br>
-      <button onClick={goToMap}>See Sky Map</button>
+      <button className='button' onClick={goToMap}>See Sky Map</button>
       <br></br>
       </div>
       <br></br>

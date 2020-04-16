@@ -29,6 +29,8 @@ class UserEvent extends React.Component{
   }
 
   componentDidMount(){
+    document.getElementById('html').style.background = "url(https://images.unsplash.com/photo-1531693724259-4a7320a99b7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60) no-repeat center center fixed"
+    document.getElementById('html').style.backgroundSize = 'cover'
     api.events.getEvents().then(data => {
       this.setState({
         events: data.filter(event => event.user_id == this.props.user.id)

@@ -69,8 +69,8 @@ const createUser = data => {
   }).then(res => res.json());
 };
 
-const getPhotos = (searchTerm) => {
-    return fetch(`https://api.unsplash.com/search/photos?query=${searchTerm}&client_id=qj3dfpSydcMDVv4cmGnE6bxKn_1PYW3-JLvt_IJCLJs`, {headers: headers()})
+const getPhotos = (search) => {
+    return fetch(`https://api.unsplash.com/search/photos?query=${search}&client_id=qj3dfpSydcMDVv4cmGnE6bxKn_1PYW3-JLvt_IJCLJs`, {headers: headers()})
     .then(res => {
         return res.json()
     })

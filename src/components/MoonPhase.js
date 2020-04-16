@@ -10,6 +10,14 @@ export default class MoonPhase extends React.Component {
     }
   
     componentDidMount() {
+      api.photos.getPhotos('constellations').then(data => {
+        this.setState({
+          background: data.results[2].urls.regular
+        }, () => {
+          document.getElementById('html').style.background = `url(${this.state.background}) no-repeat center center fixed`
+          document.getElementById('html').style.backgroundSize = 'cover'
+        })
+      })
         api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000))
         .then(data =>{
             this.setState({

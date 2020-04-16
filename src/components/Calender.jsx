@@ -31,6 +31,8 @@ class Calendar extends React.Component {
         }
       })
     })
+    document.getElementById('html').style.background = `url(https://images.unsplash.com/photo-1529935978887-ce06dc5fa8fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60) no-repeat center center fixed`
+        document.getElementById('html').style.backgroundSize = 'cover'
   }
 
   renderHeader() {

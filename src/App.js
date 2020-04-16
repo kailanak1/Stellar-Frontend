@@ -35,9 +35,28 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
+  api.photos.getPhotos('constellations').then(data => {
+    console.log(data)
+    this.setState({
+      background: data.results[0].urls.regular
+    }, () => {
+      console.log('hello'); 
+      document.getElementById('html').style.background = `url(${this.state.background}) no-repeat center center fixed`
+      document.getElementById('html').style.backgroundSize = 'cover'
+    })
+  })
 }
 
-// calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
+  
+
+// profileLink = data.results[Math.floor(Math.random())*data.results.length].links.name
+// photographer = data.results[Math.floor(Math.random())*data.results.length].user.name
+// this.setState({
+//     background: background,
+//     photographer: photographer,
+//     profileLink: profileLink
+
+
 
 login = data => {
   const updatedState = { user: {id: data.user.id,  username: data.user.username}};
@@ -78,10 +97,7 @@ addEvent = (event) => {
   .then(data => 
     console.log(data))
   }
-  //Added to user's event list (should be automatic through ActiveRecord association)
-  //Event view / detail is created?
-  //Little event bar comes up on the calendar day
-
+  
 
 createUser = (event) => {
   let newUser = {

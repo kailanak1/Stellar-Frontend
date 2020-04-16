@@ -14,11 +14,15 @@ export default class Login extends React.Component{
         }
     }
 
+    componentDidMount(){
+        document.getElementById('html').style.background = `url(https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1987&q=80) no-repeat center center fixed`
+        document.getElementById('html').style.backgroundSize = 'cover'
+    }
+
     handleSubmit = (event) => {
         event.preventDefault()
         console.log("logging in")
         api.auth.login(this.state.fields).then(res => {
-            console.log(res)
             if (!res.errors){
                 this.props.onLogin(res);
                 this.props.history.push('/calendar')

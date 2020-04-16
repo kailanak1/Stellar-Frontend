@@ -2,16 +2,19 @@ import React from 'react'
 import {api} from '../services/api'
 
 export default class EditForm extends React.Component {
-    
+    state = {
+        background: ''
+    }
 
-handleSubmit = (event) => {
-    event.preventDefault();
-    this.props.editEvent(event);
-    event.target.time.value = ''
-    event.target.title.value = ''
-    event.target.details.value = ''
-    this.props.history.push('/events')
-}
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.props.editEvent(event);
+        event.target.time.value = ''
+        event.target.title.value = ''
+        event.target.details.value = ''
+        this.props.history.push('/events')
+    }
 
 
 render(){

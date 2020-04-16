@@ -15,6 +15,14 @@ export default class Phenomena extends React.Component{
             phenomena: data
           })
         })
+        api.photos.getPhotos("galaxy").then(data => {
+          this.setState({
+            background: data.results[1].urls.regular
+          }, () => {
+            document.getElementById('html').style.background = `url(${this.state.background}) no-repeat center center fixed`
+            document.getElementById('html').style.backgroundSize = 'cover'
+          })
+        })
     }
     
     renderPhenomena = () => {

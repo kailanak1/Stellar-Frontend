@@ -2,10 +2,6 @@ import React from 'react'
 import {api} from '../services/api'
 
 export default class EventForm extends React.Component {
-//   state = {
-//     currentUser: '',
-//     currentCal: ''
-//   }
     
 componentDidMount() {
   console.log(this.props)
