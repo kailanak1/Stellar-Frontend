@@ -1,5 +1,4 @@
 import React from 'react'
-import AuthHOC from '../HOCs/AuthHOC'
 
 const PhenomenonDetail = props => {
     const { phenomenon } = props
@@ -10,7 +9,6 @@ const PhenomenonDetail = props => {
         className="ui card"
         key={phenomenon.id}
         onClick={null/*show detailed specs*/}
-        style={{color: "white"}}
       >
         <div className="content">
           <div className="header">
@@ -28,4 +26,4 @@ const PhenomenonDetail = props => {
 
 };
 
-export default AuthHOC(PhenomenonDetail);
+export default PhenomenonDetail;

@@ -20,16 +20,7 @@ export default class Navbar extends React.Component {
 
     return (
       <div className="navbar">
-
-        <NavLink
-        to="/moonphase"
-        exact
-        style={link}
-        activeStyle={{
-          background: 'black'
-        }}
-        >Moon Phase</NavLink>
-
+        
       <NavLink
         to="/constellations"
         exact
@@ -39,7 +30,16 @@ export default class Navbar extends React.Component {
         }}
         >Constellations</NavLink>
 
-      {!this.props.user ? null : <NavLink 
+      <NavLink
+        to="/moonphase"
+        exact
+        style={link}
+        activeStyle={{
+          background: 'black'
+        }}
+        >Moon Phase</NavLink>
+
+      {!localStorage.getItem("token") ? null : <NavLink 
         to="/phenomena"
         exact
         style={link}
@@ -47,7 +47,7 @@ export default class Navbar extends React.Component {
           background: 'black'
         }}>Sky Phenomena</NavLink> }
 
-        {!this.props.user ? <NavLink
+        {!localStorage.getItem("token") ? <NavLink
         to="/login"
         exact
         style={link}
@@ -77,13 +77,13 @@ export default class Navbar extends React.Component {
           background: 'black'
         }}>My Events</NavLink> }
 
-        {!!localStorage.getItem("token") == ''}
+        {!!localStorage.getItem("token") ?
         <NavLink
         to="/"
         exact
         style={link}
         onClick={this.props.logout}
-        >Logout</NavLink> 
+        >Logout</NavLink> : null}
 
     </div>
   );

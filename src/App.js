@@ -7,11 +7,11 @@ import { api } from "./services/api";
 import ConstellationList from './components/ConstellationList'
 import Phenomena from './components/Phenomena'
 import Calendar from './components/Calender.jsx'
+import MoonPhase from './components/MoonPhase'
 import './calendar.css'
 import LandingPage from './components/LandingPage'
 import UserEvent from './components/UserEvent'
 import Signup from './components/Signup'
-import MoonPhase from './components/MoonPhase'
 
 let myPhoto;
 export default class App extends React.Component {
@@ -35,8 +35,6 @@ componentDidMount() {
       this.setState({ auth: updatedState });
     });
   }
-  // api.phenomena.getPhenomena().then(data => {console.log(data)})
-  api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000)).then(data =>{console.log(data[0])})
 }
 
 // calendar: (api.auth.getCalendars().then(cals => {return cals.find(user_id => user_id == data.id) }))
@@ -85,27 +83,6 @@ addEvent = (event) => {
   //Little event bar comes up on the calendar day
 
 
-  // deleteEvent = (eventId) => {
-  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
-  //     method: "DELETE"
-  //   }
-  // }
-  
-
-  // editEvent = (eventId) => {
-  //   fetch(`http://localhost:3000/api/v1/events/`+`${eventId}`), {
-  //     method: "PUT", 
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json"
-  //       // add authorization localStorage?
-  //     }, 
-  //     body: JSON.stringify(editedEvent)
-  //   }
-  //   .then(resp => resp.json())
-  //   .then(data => console.log(data))
-  // }
-
 createUser = (event) => {
   let newUser = {
     avatar: event.target.name.value,
@@ -147,6 +124,12 @@ render() {
           <Route path="/constellations" component={ConstellationList} />
 
           <Route 
+          exact 
+          path="/moonphase" 
+          render={props => <MoonPhase {...props}  user={this.state.auth.user}/>}
+          />
+
+          <Route 
             exact
             path='/calendar' 
             render={props => <Calendar {...props} user={this.state.auth.user} onAddEvent={this.addEvent}/>} />
@@ -160,11 +143,6 @@ render() {
             exact
             path="/phenomena"
             component={Phenomena} />
-
-          <Route 
-            exact
-            path="/moonphase"
-            component={MoonPhase} />
     
           <Route
             exact
@@ -179,5 +157,3 @@ render() {
 }
 
 }
-
-

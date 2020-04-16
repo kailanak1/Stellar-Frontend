@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const ConstellationDetail = props => {
     const { star } = props
 
@@ -10,7 +9,6 @@ const ConstellationDetail = props => {
         className="ui card"
         key={star.id}
         onClick={null/*show detailed specs*/}
-        style={{color: "white"}}
       >
         <div className="content">
           <div className="header">

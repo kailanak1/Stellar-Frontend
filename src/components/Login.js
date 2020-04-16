@@ -49,7 +49,7 @@ export default class Login extends React.Component{
                         <input type="text" name="username" placeholder="username" value={fields.username} onChange={this.handleChange}></input><br></br><br></br>
                         <label>Password: </label><br></br>
                         <input type="password" name="password" placeholder="password" value={fields.password} onChange={this.handleChange}></input><br></br><br></br>
-                        <button className="home-buttons" type="submit">Log In</button>
+                        <button type="submit">Log In</button>
                    </form>
                 </div>
             </div>

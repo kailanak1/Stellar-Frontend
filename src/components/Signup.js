@@ -9,6 +9,7 @@ handleSubmit = (event) => {
     event.target.name.value = ''
     event.target.username.value = ''
     event.target.password.value = ''
+    this.props.history.push('/calendar')
 
 }
 

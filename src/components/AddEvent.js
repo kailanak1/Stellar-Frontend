@@ -2,38 +2,19 @@ import React from 'react'
 import {api} from '../services/api'
 
 export default class EventForm extends React.Component {
-//   state = {
-//     currentUser: '',
-//     currentCal: ''
-//   }
-    
-componentDidUpdate() {
-  let dayday = this.props.date.toString()
-  // console.log(dayday.toISOString())
-}
-//     api.auth.getCurrentUser().then(data => {
-//       this.setState({
-//         currentUser: data
-//       }, () => {
-//         this.getCal()
-//       })
-//     })
-// }
 
-// getCal = () => {
-//   api.auth.getCalendars()
-//     .then(data => {
-//       console.log(data)
-//       const thisCal = data.filter(calendar => calendar.user_id == this.state.currentUser.id)
-//       this.setState({
-//         currentCal: data
-//       })
-//     })
+    
+// componentDidMount() {
+//   console.log(this.props)
 // }
 
 handleSubmit = (event) => {
     event.preventDefault();
     this.props.onAddEvent(event);
+    event.target.time.value = ''
+    event.target.title.value = ''
+    event.target.details.value = ''
+    this.props.history.push('/events')
 }
 
 handleChange = (event) => {
@@ -54,7 +35,7 @@ render(){
             <br></br>
             <label>Time of event</label>
             <br></br>
-            <input type='text' placeholder={'7pm'} name='time'/><br></br>
+            <input type='text' placeholder={!!this.props.time ? this.props.time : '7pm'} name='time'/><br></br>
             <br></br>
             <label>Title / Name</label><br></br>
             <input type='text' placeholder={'meteor shower'} name='title'/><br></br><br></br>

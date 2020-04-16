@@ -12,28 +12,25 @@ import '../calendar.css'
 import EventForm from './AddEvent'
 import AuthHOC from '../HOCs/AuthHOC'
 import {api} from '../services/api'
-import AuthHOC from '../HOCs/AuthHOC'
 
-let currentUser
+
 class Calendar extends React.Component {
   state = {
     currentMonth: new Date(),
     selectedDate: new Date(),
     form: false,
+    existingEvents: []
   };
+  
 
   componentDidMount(){
-    // if (!!this.props.events) {
-    //   let existingEvents = this.props.events.map(event =>
-    //     event.date)
-    //   this.setState({
-    //     events: existingEvents
-    //   })
-    // }
-    this.setState(prev => {
-      return {
-        selectedDate: prev.selectedDate.toISOString().slice(0,10)
-      }
+    api.events.getEvents().then(data => {
+      this.setState(prev => {
+        return {
+          existingEvents: data.filter(event => event.user_id == this.props.user.id).map(e => e.date),
+          selectedDate: prev.selectedDate.toISOString().slice(0,10)
+        }
+      })
     })
   }
 
@@ -80,11 +77,6 @@ class Calendar extends React.Component {
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
-    let existingEvents = []
-    if (!!this.props.user.events) {
-      existingEvents = this.props.events.map(event =>
-        event.date)
-    }
 
     const dateFormat = "d";
     const rows = [];
@@ -102,16 +94,14 @@ class Calendar extends React.Component {
           <div
             className={`col cell ${
               !checkSelect == selectedDate ? "disabled"
-                : checkSelect === selectedDate ? "selected" : ''
-            } ${
-              existingEvents.length == 0 ? ""
-                : existingEvents.includes(checkSelect) ? "evented" : ''
-            }`}
+                : checkSelect === selectedDate ? "selected" : ''}`}
             key={day}
             onClick={() => this.onDateClick(cloneDay)}
           >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
+            {this.state.existingEvents.length == 0 ? ""
+                : this.state.existingEvents.includes(checkSelect) ? <h5 className="evented">Your Stellar Event!</h5> : null }
           </div>
         );
         day = addDays(day, 1);
@@ -167,7 +157,7 @@ class Calendar extends React.Component {
 
   showForm = () => {
     if (this.state.form === true) {
-      return <EventForm updateDate={this.updateDate} onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
+      return <EventForm {...this.props} updateDate={this.updateDate} onAddEvent={this.props.onAddEvent} style={{display: "block"}} show={this.state.form} date={this.state.selectedDate}/>
     } else {
       return <EventForm updateDate={this.updateDate} date={this.state.selectedDate} onAddEvent={this.props.onAddEvent} show={this.state.form} style={{display:'none'}}/>}
   }
@@ -196,4 +186,3 @@ class Calendar extends React.Component {
 }
 
 export default AuthHOC(Calendar);
-

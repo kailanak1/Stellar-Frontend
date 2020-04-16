@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom'
 import {api} from "../services/api"
 
 const AuthHOC = WrappedComponent => {
-    console.log(WrappedComponent)
 
   return class AuthHOC extends React.Component {
 
@@ -18,16 +17,21 @@ const AuthHOC = WrappedComponent => {
 
     checkLogin = () => {
         if (!localStorage.getItem("token")) {
-            console.log("login chain 1")
-            this.props.history.push("/login")
+            this.setState({
+                authorized: false,
+                responseCollected: true
+            })
         } else {
             api.auth.getCurrentUser().then(resp => {
                 if (resp.error){
-                    this.props.history.push("/login")
-                } else {
-                    console.log("got down the check login chain")
                     this.setState({
-                        authorized: true
+                        authorized: false,
+                        responseCollected: true
+                    })  
+                } else {
+                    this.setState({
+                        authorized: true,
+                        responseCollected: true
                     }) 
                 }
             })
@@ -35,29 +39,23 @@ const AuthHOC = WrappedComponent => {
     }
 
     isAuthorized = () => {
-        return this.state.authorized 
+        return this.state.authorized
     }
 
-    // isRejected = () => {
-    //     console.log("is rejecting")
-    //     console.log(this.state)
-    //     return !this.state.authorized && this.state.responseCollection
-    // }
+    isRejected = () => {
+        return !this.state.authorized && this.state.responseCollection
+    }
 
 
     render(){
       return (
-      <div>
-          {this.isAuthorized() ? (
-          <WrappedComponent {...this.props}/> 
-          ): (
-            <Redirect to="/login"/> 
-          )}
-        </div>     
-      )
+        <div>
+            {this.isAuthorized() ? (<WrappedComponent {...this.props}/>) : 
+        this.isRejected() ? <Redirect to="/login"/> : null} 
+      </div>)
+
     }
+}
 }
 
 export default AuthHOC;
-
-//now need to apply this to all components that need to be private
