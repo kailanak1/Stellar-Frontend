@@ -44,12 +44,14 @@ class UserEvent extends React.Component{
         let i=1
         return this.state.events.map(event => {
           return (<div>
-                    <h3>{i}. {event.title[0].toUpperCase() + event.title.slice(1)}</h3>
-                    <p>{`${months[event.date.slice(5,7)]} ${event.date.slice(8,10)}, ${event.date.slice(0,4)}`} at {event.time}<br></br>
-                    {i++}
-                    Things to Remember: {event.details}</p>
+                    {!!event.title ? <h3>{i}. {event.title[0].toUpperCase() + event.title.slice(1)}</h3> : <h3>[Untitled Event]</h3>}
 
-                    <button onClick={() => this.editEvent({event})}>Edit Event</button>&emsp;<button>Delete Event</button>
+                    {!!event.date ?
+                    <p>{`${months[event.date.slice(5,7)]} ${event.date.slice(8,10)}, ${event.date.slice(0,4)}`} at {event.time}<br></br>
+                    <span style={{display:'none'}}>{i++}</span>
+                    Things to Remember: {event.details}</p> : null}
+
+                    <button onClick={() => this.editEvent({event})}>Edit Event</button>&emsp;<button onClick={() => this.deleteEvent({event})}>Delete Event</button>
                     <br></br>
                   </div>
                   )
@@ -66,6 +68,16 @@ class UserEvent extends React.Component{
       currentEvent: e
       } 
     }, () => this.showForm())
+  }
+
+  goBack = () => {
+    this.setState(prev => {
+      return {
+        form: !prev.form,
+        list: !prev.list
+      }
+    }, () => {
+    this.props.history.push('/events')})
   }
 
   postEdit = (event) => {
@@ -86,10 +98,33 @@ class UserEvent extends React.Component{
         body: JSON.stringify(editedEvent)
       })
       .then(resp => resp.json())
-      .then(data => 
-        console.log(data))
+      .then(data => {
+        this.setState(prev => {
+          return {
+            form: !prev.form,
+            list: !prev.list
+          }
+      })})
       this.props.history.push('/events')
     }
+
+  deleteEvent = (e) => {
+    this.setState(prev=> {
+      return {
+      currentEvent: e
+      } 
+    }, () => {
+      fetch(`http://localhost:3000/api/v1/events/${this.state.currentEvent.event.id}`, {
+          method: "DELETE"
+        })
+        .then(resp => {
+          this.setState({
+            currentEvent: {}
+          })
+        })
+        })
+      this.props.history.push('/calendar')
+  }
 
 
   showForm = () => {

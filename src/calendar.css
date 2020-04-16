@@ -182,9 +182,11 @@ calendarMain {
 }
 
 .calendar .body .evented {
-  border-top: 15px solid transparent;
-  border-image: linear-gradient(45deg, #5e09be 0%,#ac09c2 40%);
-  border-image-slice: 1;
+  margin-top: 30px;
+  background-color: #ac09c2;
+  color: white;
+  width: 100%;
+  font-family: 'Playfair Display', cursive; 
 }
 
 .calendar .body .row {

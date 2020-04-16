@@ -21,14 +21,14 @@ export default class Navbar extends React.Component {
     return (
       <div className="navbar">
         
-      {!!localStorage.getItem("token") ? <NavLink
+      <NavLink
         to="/constellations"
         exact
         style={link}
         activeStyle={{
           background: 'black'
         }}
-        >Constellations</NavLink> : null }
+        >Constellations</NavLink>
 
       <NavLink
         to="/moonphase"
@@ -47,7 +47,7 @@ export default class Navbar extends React.Component {
           background: 'black'
         }}>Sky Phenomena</NavLink> }
 
-        {!this.props.user ? <NavLink
+        {!localStorage.getItem("token") ? <NavLink
         to="/login"
         exact
         style={link}
@@ -77,13 +77,13 @@ export default class Navbar extends React.Component {
           background: 'black'
         }}>My Events</NavLink> }
 
-        {!!localStorage.getItem("token") == ''}
+        {!!localStorage.getItem("token") ?
         <NavLink
         to="/"
         exact
         style={link}
         onClick={this.props.logout}
-        >Logout</NavLink> 
+        >Logout</NavLink> : null}
 
     </div>
   );
