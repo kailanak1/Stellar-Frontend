@@ -16,6 +16,7 @@ class LandingPage extends React.Component{
   
   getPic = () => {
       api.photos.getPhotos('constellations').then(data => {
+          console.log(data)
     background = data.results[Math.floor(Math.random())*data.results.length].urls.regular;
    profileLink = data.results[Math.floor(Math.random())*data.results.length].links.name
    photographer = data.results[Math.floor(Math.random())*data.results.length].user.name
@@ -34,6 +35,7 @@ class LandingPage extends React.Component{
 
   render(){
     //   {this.getPic()}
+    console.log(this.state)
     return(
       <div className="flex-container">
         <h1 className="wrapper message left-column" style={{position:"relative", top: "200px"}}>
@@ -55,8 +57,9 @@ class LandingPage extends React.Component{
                 <br></br>
             </Link>
         </div>
-        <div className="photographerbody"  />
-        Photo by <a href={this.state.profileLink}>{this.state.photographer}</a> on <a href="https://unsplash.com/?utm_source=Stellar&utm_medium=referral">Unsplash</a>
+        <div className="photographerbody"  >
+        <small style={{color: "white"}}>Photo by <a href={this.state.profileLink}>{this.state.photographer}</a> on <a href="https://unsplash.com/?utm_source=Stellar&utm_medium=referral">Unsplash</a></small>
+        </div>
       </div>
     )
   }

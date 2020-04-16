@@ -1,3 +1,4 @@
+  
 import React from 'react'
 import {api} from '../services/api'
 
@@ -33,7 +34,9 @@ render(){
             <input type='textarea' name='details' defaultValue={this.props.current.details}/><br></br><br></br>
             
             <button onClick={this.props.goBack}>Back</button>&emsp;<input type="submit" ></input>
+            <br></br>
         </form>
+        <br></br>
       </div>
     )
   }

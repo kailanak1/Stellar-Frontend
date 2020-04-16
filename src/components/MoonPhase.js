@@ -28,14 +28,14 @@ export default class MoonPhase extends React.Component {
 
     handleOnClick = () => {  
       this.postMoonPhase()
+      this.props.history.push('/events')
     }
 
-    // <Event id: 27, date: "2020-04-09", title: "meteor shower", time: "7
+
     
   
-    postMoonPhase = (event) => {
+    postMoonPhase = () => {
 
-      //don't touch     
       let date_input = (new Date(this.state.UNIXTime * 1000))
       let time = date_input.toString().split(' ')[4]
       let day = date_input.getDate() + 1;

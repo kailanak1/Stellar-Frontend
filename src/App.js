@@ -14,6 +14,7 @@ import UserEvent from './components/UserEvent'
 import Signup from './components/Signup'
 
 let myPhoto;
+
 export default class App extends React.Component {
   constructor() {
     super();
@@ -107,8 +108,8 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-        <h1 style={{flexBasis: '40%', fontStyle: 'oblique'}}>Stellar</h1>
-        <Navbar style={{flexBasis: '40%'}} logout={this.logout} user={this.state.auth.user}/>
+          <h1 style={{margin: '5px', paddingLeft: '10px', paddingTop: '5px'}}>Stellar</h1>
+          <Navbar className='navbar' logout={this.logout} user={this.state.auth.user}/>
         </header>
         <div className = "main">
           <Route
@@ -121,13 +122,15 @@ render() {
             path="/signup"
             render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
-          <Route path="/constellations" component={ConstellationList} />
+          <Route exact path="/constellations" render={props => <ConstellationList {...props} />} />
+
 
           <Route 
           exact 
           path="/moonphase" 
           render={props => <MoonPhase {...props}  user={this.state.auth.user}/>}
           />
+
 
           <Route 
             exact
