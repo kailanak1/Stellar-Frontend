@@ -13,7 +13,7 @@ const ConstellationDetail = props => {
     fetch(`https://www.strudel.org.uk/lookUP/json/?name=${STAR_NAME}`)
     .then(resp => resp.json())
     .then(data => {
-      console.log(data.image.src)
+       return data.image.src
       })
     }
 
@@ -21,7 +21,7 @@ const ConstellationDetail = props => {
       !props.show ? <div></div> :  
     <div className="flex-container">
       <div className="left-column" style={{marginTop: '20px'}}>
-{console.log(STAR_NAME[0].toLowerCase().concat(STAR_NAME.slice(1)))}
+{/* {console.log(STAR_NAME[0].toLowerCase().concat(STAR_NAME.slice(1)))} */}
         <div className="content" style={{width: '90%', border: '1px solid white', margin: 'auto'}}>
           <div className="header">
             <span style={{fontSize: "33px", fontWeight: 'bolder'}}>{thisStar.Name} </span> ({thisStar.Abbr}) <br></br>
@@ -47,13 +47,17 @@ const ConstellationDetail = props => {
         </div>
         <button onClick={props.goBack}>Back</button>
         <br></br>
+        <br></br>
         </div>
         <br></br>
       </div>
       <div className="right-column" style={{width: "45%"}}>
         <br></br><br></br>
-          <img src={getPic()} alt="constellation"></img>
-        <br></br><br></br>
+        <div style={{backgroundColor: '#282c34', width: '90%'}}>
+          <img src={`http://www.seasky.org/constellations/assets/images/${STAR_NAME[0].toLowerCase().concat(STAR_NAME.slice(1))}.jpg`} style={{padding: '18px'}}alt="constellation" width='375px'></img>
+        <br></br>
+      </div>
+      <br></br>
       <button onClick={goToMap}>See Sky Map</button>
       <br></br>
       </div>
