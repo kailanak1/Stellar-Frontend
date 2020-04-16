@@ -5,37 +5,53 @@ export default class MoonPhase extends React.Component {
     constructor() {
       super()
       this.state = {
-        moonPhase: []
+        moonPhase: [],
+        UNIXTime: Math.round((new Date()).getTime() / 1000)
       }
     }
   
+    changeDate = (event) => {
+      this.setState({
+        UNIXTime: Math.round((new Date(event.target.value)).getTime() / 1000)
+      }, ()=> {
+        this.componentDidMount()
+      })
+    }
     componentDidMount() {
-        api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000))
-        .then(data =>{
-            this.setState({
-                moonPhase: data[0]
-            })
-        })
+      api.moonPhase.getMoonPhase(this.state.UNIXTime)
+      .then(data =>{
+          this.setState({
+              moonPhase: data[0]
+          })
+      })
     }
 
-    handleOnClick = () => {
-      
+    handleOnClick = () => {  
       this.postMoonPhase()
-    
     }
+
+    // <Event id: 27, date: "2020-04-09", title: "meteor shower", time: "7
     
-    onDateClick = (day) => {
-      const newSelect = day.toISOString().slice(0,10)
-      this.setState({
-        selectedDate: newSelect,
-      });
-    };
   
     postMoonPhase = (event) => {
+
+      //don't touch     
+      let date_input = (new Date(this.state.UNIXTime * 1000))
+      let time = date_input.toString().split(' ')[4]
+      let day = date_input.getDate() + 1;
+      if (day.toString().length === 1 ){
+        day = `0${date_input.getDate() + 1}`
+      }
+      let month = date_input.getMonth() + 1;
+      if (month.toString().length === 1 ){
+        month = `0${date_input.getMonth() + 1}`
+      }
+      let year = date_input.getFullYear();
+      let yyyy_MM_dd = year + "-" + month + "-" + day
       let moonEvent = {
         title: this.state.moonPhase.Phase, 
-        date: this.state.UTCtime, 
-        time: this.state.UTCtime, 
+        date: yyyy_MM_dd, 
+        time: time, 
         details: null, 
         user_id: this.props.user.id
       }
@@ -91,11 +107,15 @@ export default class MoonPhase extends React.Component {
     }
   
     render(){
-      console.log(this.props)
+     
       return (
         <div>
-          <h2 style={{color: "white"}}>Tonight's Moon</h2>
+          <h2 style={{color: "white"}}>Moon Phase</h2>
           {this.renderMoonPhase()}
+          <form>
+            <label style={{color: "white", fontSize: "20px"}}>Choose a date to see the moon's phase:</label><br></br>
+            <input onChange={(event) => this.changeDate(event)} type="date" defaultValue={new Date()} name="date" ></input>
+          </form>
         </div>
         )
       }
