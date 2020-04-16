@@ -31,10 +31,10 @@ export default class MoonPhase extends React.Component {
                     <div className="content">
                     <div className="header">
                         <span style={{fontSize: "30px"}}>{moon.Moon} </span><br></br>
+                        <h3>Phase: {moon.Phase}</h3>
                     </div>
 
-                    <div className="meta text-wrap">
-                        <h3>Phase: {moon.Phase}</h3>
+                    <div style={{border:"1px solid white", width: '95%', margin: 'auto'}}>
                         <h4>Illumination: {moon.Illumination * 100}%</h4>
                         <h4>Moon Age: {moon.Age} days</h4>
                         <h4>Moon's Distance to Earth: {moon.Distance} km</h4>
@@ -46,14 +46,14 @@ export default class MoonPhase extends React.Component {
             </div>
           </div>
         </div>
-        <div className="right-column">
+        <div className="right-column" style={{width: "45%"}}>
         <br></br><br></br>
           <img src="https://www.moonconnection.com/images/moon_phases_diagram.jpg" alt="lunar cycle"></img>
         </div>
       </div>
         )
     }
-    //<img src="https://www.moonconnection.com/images/moon_phases_diagram.jpg" alt="lunar cycle">
+
   
     render(){
       return (

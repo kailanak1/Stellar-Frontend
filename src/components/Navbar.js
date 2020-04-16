@@ -6,8 +6,6 @@ export default class Navbar extends React.Component {
 
   render(){
     const link = {
-      width: '70px',
-      hieght: '30px',
       fontSize: "20px",
       fontFamily: 'Playfair Display cursive',
       fontStyle: 'oblique', 
@@ -19,69 +17,72 @@ export default class Navbar extends React.Component {
     }
 
     return (
-      <div className="navbar">
+      <div className="navbar" style={{alignItems: 'center', marginTop: '10px'}}>
         
-      <NavLink
+      <NavLink className='link'
         to="/constellations"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}
         >Constellations</NavLink>
 
-      <NavLink
+      <NavLink className='link'
         to="/moonphase"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}
         >Moon Phase</NavLink>
 
-      {!localStorage.getItem("token") ? null : <NavLink 
+      {!localStorage.getItem("token") ? null : <NavLink className='link'
         to="/phenomena"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}>Sky Phenomena</NavLink> }
 
-        {!localStorage.getItem("token") ? <NavLink
+        {!localStorage.getItem("token") ? <NavLink className='link'
         to="/login"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}
-        >Log In</NavLink> : <NavLink 
+        >Log In</NavLink> : <NavLink className='link'
         to="/calendar"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}>My Calendar</NavLink> }
 
-      {!localStorage.getItem("token") ? <NavLink
+      {!localStorage.getItem("token") ? <NavLink className='link'
         to="/"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}
-        >Home</NavLink> : <NavLink 
+        >Home</NavLink> : <NavLink className='link'
         to="/events"
         exact
         style={link}
         activeStyle={{
-          background: 'black'
+          background: 'rgba(71, 3, 114, 0.836)'
         }}>My Events</NavLink> }
 
         {!!localStorage.getItem("token") ?
-        <NavLink
+        <NavLink className='link'
         to="/"
         exact
         style={link}
+        activeStyle={{
+          background: 'rgba(71, 3, 114, 0.836)'
+        }}
         onClick={this.props.logout}
         >Logout</NavLink> : null}
 

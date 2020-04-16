@@ -170,7 +170,7 @@ class Calendar extends React.Component {
   render() {
     return (
       <div className="flex-container">
-        <div className="left-column" style={{width:'65%'}}>
+        <div className="left-column" style={{width:'60%'}}>
           <h1 style={{color:'white', fontSize:'40px'}}>My Calendar</h1>
           <div className="calendar">
             {this.renderHeader()}

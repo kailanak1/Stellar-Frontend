@@ -5,8 +5,9 @@ const PhenomenonDetail = props => {
 
   return (
     <div style={{color:'white'}} className="ui column">
+
       <div
-        className="ui card"
+        style={{width: '40%', border: '1px solid white', margin: 'auto'}}
         key={phenomenon.id}
         onClick={null/*show detailed specs*/}
       >
@@ -16,11 +17,12 @@ const PhenomenonDetail = props => {
           </div>
 
           <div className="meta text-wrap">
-            <h4>{phenomenon.Month} {phenomenon.Date}, at {phenomenon.LocalTime}</h4>
+            <h3>{phenomenon.Month} {phenomenon.Date}, at {phenomenon.LocalTime}</h3>
           </div>
         </div>
         <br></br>
       </div>
+      <br></br>
     </div>
   );
 

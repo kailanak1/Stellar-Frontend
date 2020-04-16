@@ -14,15 +14,26 @@
 }
 
 .App-header {
+  margin-top: 15px;
   background-color: #282c34;
-  max-height: 100px;
-  display: flex;
-  flex-direction: row;
+  height: 120px;
   align-items: center;
-  justify-content: right;
   font-size: calc(10px + 2vmin);
   color: white;
   width: 100%;
+  margin-bottom: 20px;
+}
+
+.App-header h1 {
+  float: left;
+  position: relative;
+  top: 10px;
+  left: 20px
+}
+
+.App-header .navbar {
+  float: right;
+  padding-top: 30px
 }
 
 .App-link {
@@ -115,7 +126,7 @@ form {
   color: white;
 }
 
-.navbar {
-  position: relative;
-  left: '100px'
+.navbar .link {
+  float: right;
+  width: fit-content;
 }
