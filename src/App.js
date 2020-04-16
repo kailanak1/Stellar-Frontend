@@ -121,7 +121,7 @@ render() {
             path="/signup"
             render={props => <Signup {...props} appState={this.state} onCreateUser={this.createUser} />}/>
 
-          <Route exact path="/constellations" component={ConstellationList} />
+          <Route exact path="/constellations" render={props => <ConstellationList {...props} />} />
 
 
           <Route path="/moonphase" component={MoonPhase} />

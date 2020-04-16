@@ -13,13 +13,21 @@ export default class ConstellationList extends React.Component {
     }
   }
 
-
   componentDidMount() {
     api.constellations.getConstellations().then(data => {
       this.setState({
         constellations: data
     })
   })
+  }
+
+  goBack = () => {
+    this.setState(prev => {
+      return {
+        detail: !prev.detail,
+      }
+    }, () => {
+    this.props.history.push('/constellations')})
   }
 
   handleClick = (star) => {
@@ -33,9 +41,9 @@ export default class ConstellationList extends React.Component {
 
   showDetail = () => {
     if (this.state.form === true) {
-      return <ConstellationDetail {...this.props} star={this.state.star} style={{display: "block"}} show={this.state.detail} />
+      return <ConstellationDetail {...this.props} star={this.state.star} style={{display: "block"}} goBack={this.goBack} show={this.state.detail} />
     } else {
-      return <ConstellationDetail {...this.props} star={this.state.star} show={this.state.detail} style={{display:'none'}}/>}
+      return <ConstellationDetail {...this.props} star={this.state.star} show={this.state.detail} goBack={this.goBack} style={{display:'none'}}/>}
   }
 
   renderConstellations = () => {

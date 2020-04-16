@@ -45,6 +45,8 @@ const ConstellationDetail = props => {
           </span><br></br>
           <br></br>
         </div>
+        <button onClick={props.goBack}>Back</button>
+        <br></br>
         </div>
         <br></br>
       </div>
@@ -53,8 +55,10 @@ const ConstellationDetail = props => {
           <img src={getPic()} alt="constellation"></img>
         <br></br><br></br>
       <button onClick={goToMap}>See Sky Map</button>
+      <br></br>
       </div>
       <br></br>
+
     </div>
   );
 
