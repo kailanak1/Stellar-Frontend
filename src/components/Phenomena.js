@@ -19,11 +19,12 @@ export default class Phenomena extends React.Component{
     
     renderPhenomena = () => {
         return this.state.phenomena.map(phenomenon => {
-            return <PhenomenonDetail key={phenomenon.id} phenomenon={phenomenon}/>
+            return <PhenomenonDetail key={phenomenon.id} phenomenon={phenomenon} user={this.props.user}/>
         })
     }
 
     render(){
+   
         return (
           <div style={{color:'white'}}>
             <h2>Phenomena</h2>

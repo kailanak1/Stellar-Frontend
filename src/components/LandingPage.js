@@ -16,7 +16,6 @@ class LandingPage extends React.Component{
   
   getPic = () => {
       api.photos.getPhotos('constellations').then(data => {
-          console.log(data)
     background = data.results[Math.floor(Math.random())*data.results.length].urls.regular;
    profileLink = data.results[Math.floor(Math.random())*data.results.length].links.name
    photographer = data.results[Math.floor(Math.random())*data.results.length].user.name

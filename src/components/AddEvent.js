@@ -22,10 +22,9 @@ handleChange = (event) => {
 }
 
 render(){
-    //receive props from CALENDAR SELECTION
+  
     const dateSelection = this.props.day
-    
-    return (
+   return (
         !this.props.show ? <div></div> :  
       <div id="EventForm">
         <form id="event-form" onSubmit={this.handleSubmit}>

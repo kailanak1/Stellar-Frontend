@@ -145,7 +145,7 @@ render() {
           <Route 
             exact
             path="/phenomena"
-            component={Phenomena} />
+            render={props => <Phenomena {...props} user={this.state.auth.user} />} />  
     
           <Route
             exact
