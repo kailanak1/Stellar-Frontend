@@ -36,7 +36,6 @@ componentDidMount() {
     });
   }
   api.photos.getPhotos('constellations').then(data => {
-    console.log(data)
     this.setState({
       background: data.results[0].urls.regular
     }, () => {
@@ -46,15 +45,6 @@ componentDidMount() {
     })
   })
 }
-
-  
-
-// profileLink = data.results[Math.floor(Math.random())*data.results.length].links.name
-// photographer = data.results[Math.floor(Math.random())*data.results.length].user.name
-// this.setState({
-//     background: background,
-//     photographer: photographer,
-//     profileLink: profileLink
 
 
 
@@ -110,7 +100,6 @@ createUser = (event) => {
      if (!!res.user.id){
         this.login(res);
         this.setState({errors: false})
-        //NEED TO REDIRECT
     } else {
         this.setState({errors: true})
     }
@@ -123,7 +112,7 @@ render() {
     <div className="App">
       <Router>
         <header className="App-header">
-          <h1 style={{margin: '5px', paddingLeft: '10px', paddingTop: '5px'}}>Stellar</h1>
+          <h1 style={{margin: '5px', paddingLeft: '10px', paddingTop: '5px', fontStretch: '200%'}}>Stellar</h1>
           <Navbar className='navbar' logout={this.logout} user={this.state.auth.user}/>
         </header>
         <div className = "main">
@@ -140,7 +129,11 @@ render() {
           <Route exact path="/constellations" render={props => <ConstellationList {...props} />} />
 
 
-          <Route path="/moonphase" component={MoonPhase} />
+          <Route 
+          exact 
+          path="/moonphase" 
+          render={props => <MoonPhase {...props}  user={this.state.auth.user}/>}
+          />
 
           <Route 
             exact
@@ -155,7 +148,7 @@ render() {
           <Route 
             exact
             path="/phenomena"
-            component={Phenomena} />
+            render={props => <Phenomena {...props} user={this.state.auth.user} />} />
     
           <Route
             exact

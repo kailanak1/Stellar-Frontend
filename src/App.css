@@ -15,7 +15,7 @@
 
 .App-header {
   margin-top: 15px;
-  background-color: #282c34;
+  background-color: rgba(0,0,0.2,0.5);
   height: 120px;
   align-items: center;
   font-size: calc(10px + 2vmin);
@@ -26,8 +26,10 @@
 
 .App-header h1 {
   float: left;
+  font-family: 'Great Vibes', cursive;
+  font-size: 65px ;
   position: relative;
-  top: 10px;
+  top: 8px;
   left: 20px
 }
 
@@ -115,6 +117,28 @@ h1 {
     color: white;
 }
 
+.page-button {
+  font-size: 17px;
+    font-family: "Playfair Display cursive";
+    font-style: oblique;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0px 6px 6px;
+    background: rgba(71, 3, 114, 0.836);
+    color: white;
+}
+
+.edit-button {
+  font-size: 15px;
+    font-family: "Playfair Display cursive";
+    font-style: oblique;
+    text-decoration: none;
+    padding: 7px;
+    margin: 0px 4px 4px;
+    background: rgba(71, 3, 114, 0.836);
+    color: white;
+}
+
 .home-buttons {
   border-radius: 6px;
   border: 2px solid white;
@@ -133,6 +157,10 @@ form {
 
 .events{
   color: white;
+  width: 40%;
+  margin: auto;
+  margin-top: -20px;
+  background-color: rgba(0,0,0.2,0.2);
 }
 
 .navbar .link {

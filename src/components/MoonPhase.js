@@ -5,10 +5,19 @@ export default class MoonPhase extends React.Component {
     constructor() {
       super()
       this.state = {
-        moonPhase: []
+        moonPhase: [],
+        UNIXTime: Math.round((new Date()).getTime() / 1000)
       }
     }
   
+    changeDate = (event) => {
+      this.setState({
+        UNIXTime: Math.round((new Date(event.target.value)).getTime() / 1000)
+      }, ()=> {
+        this.componentDidMount()
+      })
+    }
+
     componentDidMount() {
       api.photos.getPhotos('constellations').then(data => {
         this.setState({
@@ -18,13 +27,54 @@ export default class MoonPhase extends React.Component {
           document.getElementById('html').style.backgroundSize = 'cover'
         })
       })
-        api.moonPhase.getMoonPhase(Math.round((new Date()).getTime() / 1000))
+        api.moonPhase.getMoonPhase(this.state.UNIXTime)
         .then(data =>{
             this.setState({
                 moonPhase: data[0]
             })
         })
-    }
+      }
+
+      handleOnClick = () => {  
+        this.postMoonPhase()
+        this.props.history.push('/events')
+      }
+
+      postMoonPhase = () => {
+
+        let date_input = (new Date(this.state.UNIXTime * 1000))
+        let time = date_input.toString().split(' ')[4]
+        let day = date_input.getDate() + 1;
+        if (day.toString().length === 1 ){
+          day = `0${date_input.getDate() + 1}`
+        }
+        let month = date_input.getMonth() + 1;
+        if (month.toString().length === 1 ){
+          month = `0${date_input.getMonth() + 1}`
+        }
+        let year = date_input.getFullYear();
+        let yyyy_MM_dd = year + "-" + month + "-" + day
+        let moonEvent = {
+          title: this.state.moonPhase.Phase, 
+          date: yyyy_MM_dd, 
+          time: time, 
+          details: null, 
+          user_id: this.props.user.id
+        }
+        fetch("http://localhost:3000/api/v1/events",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: localStorage.getItem("token")
+          }, 
+          body: JSON.stringify(moonEvent)
+        })
+        .then(resp => resp.json())
+        .then(data => 
+          console.log(data))
+        }
+        
   
     renderMoonPhase = () => {
       let moon = this.state.moonPhase
@@ -38,6 +88,7 @@ export default class MoonPhase extends React.Component {
                 >
                     <div className="content">
                     <div className="header">
+                    <br></br>
                         <span style={{fontSize: "30px"}}>{moon.Moon} </span><br></br>
                         <h3>Phase: {moon.Phase}</h3>
                     </div>
@@ -49,8 +100,15 @@ export default class MoonPhase extends React.Component {
                         <h4>Moon's Distance to Sun: {moon.DistanceToSun} km</h4>
                         <h4>Moon Angle: {moon.AngularDiameter}</h4>
                         <h4>Sun Angle: {moon.SunAngularDiameter}</h4>
+                        {!!localStorage.token ? <button onClick={this.handleOnClick} className="page-button">Add to my calendar</button> : null}
+                  <br></br>
                     <br></br>
                 </div>
+                <br></br>
+                <form>
+                  <label style={{color: "white", fontSize: "20px"}}>Choose a date to see the moon's phase:</label><br></br>
+                  <input onChange={(event) => this.changeDate(event)} type="date" defaultValue={new Date()} name="date" ></input>
+                </form>
             </div>
           </div>
         </div>
@@ -66,8 +124,9 @@ export default class MoonPhase extends React.Component {
     render(){
       return (
         <div>
-          <h2 style={{color: "white"}}>Today's Moon</h2>
+          <h2 style={{fontSize: '40px', fontFamily: 'Playfair Display cursive', fontStyle: 'oblique', textDecoration: 'none', margin: 'unset', color: 'white'}}>Moon Phase</h2>
           {this.renderMoonPhase()}
+          
         </div>
         )
       }

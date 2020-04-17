@@ -53,7 +53,7 @@ export default class ConstellationList extends React.Component {
       return (
         <Fragment>
           <br></br>
-          <div className="ui column" style={{width: '55%', border: '1px solid white', margin: 'auto'}}>
+          <div className="ui column" style={{width: '45%', border: '1px solid white', margin: 'auto'}}>
             <div
               className="ui card"
               key={star.id}
@@ -61,7 +61,7 @@ export default class ConstellationList extends React.Component {
             >
               <div className="content">
                 <div className="header">
-                  <span style={{fontSize: "30px"}}>{star.Name} </span>
+                  <span style={{fontSize: "28px", fontWeight: 'bolder'}}>{star.Name} </span>
 
                   <br></br>
                 </div>
@@ -81,7 +81,8 @@ export default class ConstellationList extends React.Component {
   render(){
     return (
       <div style={{color:'white'}}>
-        <h2>Constellations Galore</h2>
+        <h2 style={{fontSize: '40px', fontFamily: 'Playfair Display cursive', fontStyle: 'oblique', textDecoration: 'none', margin: 'unset'}}>Constellations Galore</h2>
+        <small>Click for more details</small>
         <div >
         {this.state.detail ? this.showDetail() : this.renderConstellations()}
         <br></br>

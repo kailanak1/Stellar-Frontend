@@ -24,12 +24,12 @@ const ConstellationDetail = props => {
 {/* {console.log(STAR_NAME[0].toLowerCase().concat(STAR_NAME.slice(1)))} */}
         <div className="content" style={{width: '90%', border: '1px solid white', margin: 'auto'}}>
           <div className="header">
-            <span style={{fontSize: "33px", fontWeight: 'bolder'}}>{thisStar.Name} </span> ({thisStar.Abbr}) <br></br>
+            <span style={{fontSize: "33px", fontWeight: 'bolder', position: 'relative', top: '5px'}}>{thisStar.Name} </span> ({thisStar.Abbr}) <br></br>
             <small>{thisStar.Pronunciation}</small>
           </div>
 
           <div className="meta text-wrap">
-            <h4>" {thisStar.Meaning} "</h4>
+            <h4 style={{fontSize: '120%'}}>" {thisStar.Meaning} "</h4>
           </div>
         <div className="extra content" style={{fontSize: '17px'}}>
           <span>
@@ -45,7 +45,7 @@ const ConstellationDetail = props => {
           </span><br></br>
           <br></br>
         </div>
-        <button className='button' onClick={props.goBack}>Back</button>
+        <button className="page-button" style={{backgroundColor: 'purple'}} onClick={props.goBack}>Back</button>
         <br></br>
         <br></br>
         </div>
@@ -58,7 +58,7 @@ const ConstellationDetail = props => {
         <br></br>
       </div>
       <br></br>
-      <button className='button' onClick={goToMap}>See Sky Map</button>
+      <button className="page-button" style={{backgroundColor: 'purple'}} onClick={goToMap}>See Sky Map</button>
       <br></br>
       </div>
       <br></br>

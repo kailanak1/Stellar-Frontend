@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import AuthHOC from "../HOCs/AuthHOC";
 import { api } from '../services/api'
 import EditForm from './EditForm'
@@ -29,13 +29,15 @@ class UserEvent extends React.Component{
   }
 
   componentDidMount(){
-    document.getElementById('html').style.background = "url(https://images.unsplash.com/photo-1531693724259-4a7320a99b7a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60) no-repeat center center fixed"
-    document.getElementById('html').style.backgroundSize = 'cover'
-    api.events.getEvents().then(data => {
-      this.setState({
-        events: data.filter(event => event.user_id == this.props.user.id)
-    })
+    this.getEvents()
+}
+
+getEvents = () => {
+  api.events.getEvents().then(data => {
+    this.setState({
+      events: data.filter(event => event.user_id == this.props.user.id)
   })
+})
 }
 
   renderEvents = () => {
@@ -45,17 +47,21 @@ class UserEvent extends React.Component{
       } else {
         let i=1
         return this.state.events.map(event => {
-          return (<div>
-                    {!!event.title ? <h3>{i}. {event.title[0].toUpperCase() + event.title.slice(1)}</h3> : <h3>[Untitled Event]</h3>}
+          return (
+            <Fragment>
+              <div style={{border: '1px solid white', margin: 'auto'}}>
+                    {!!event.title ? <span style={{fontSize: '28px'}}>{i}. {event.title[0].toUpperCase() + event.title.slice(1)}</span> : <h3>[Untitled Event]</h3>}
 
                     {!!event.date ?
                     <p>{`${months[event.date.slice(5,7)]} ${event.date.slice(8,10)}, ${event.date.slice(0,4)}`} at {event.time}<br></br>
                     <span style={{display:'none'}}>{i++}</span>
                     Things to Remember: {event.details}</p> : null}
 
-                    <button onClick={() => this.editEvent({event})}>Edit Event</button>&emsp;<button onClick={() => this.deleteEvent({event})}>Delete Event</button>
-                    <br></br>
+                    <button className='edit-button' onClick={() => this.editEvent({event})}>Edit Event</button>&emsp;<button className='edit-button' onClick={() => this.deleteEvent({event})}>Delete Event</button>
+                    <br></br><br></br>
                   </div>
+                  <br></br>
+              </Fragment>
                   )
         })
       }
@@ -111,21 +117,11 @@ class UserEvent extends React.Component{
     }
 
   deleteEvent = (e) => {
-    this.setState(prev=> {
-      return {
-      currentEvent: e
-      } 
-    }, () => {
-      fetch(`http://localhost:3000/api/v1/events/${this.state.currentEvent.event.id}`, {
+      fetch(`http://localhost:3000/api/v1/events/${e.event.id}`, {
           method: "DELETE"
         })
-        .then(resp => {
-          this.setState({
-            currentEvent: {}
-          })
-        })
-        })
-      this.props.history.push('/calendar')
+        .then(resp => this.getEvents())
+      
   }
 
 
@@ -139,7 +135,8 @@ class UserEvent extends React.Component{
   render() {
     return (
       <div className="events">
-        <h2>My Events:</h2>
+      <br></br>
+        <h2 style={{fontSize: '40px', fontFamily: 'Playfair Display cursive', fontStyle: 'oblique', textDecoration: 'none', margin: 'unset'}}>My Events:</h2>
         {this.renderEvents()}
         {this.showForm()}
       </div>
